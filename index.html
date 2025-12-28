@@ -6,143 +6,66 @@
   <title>Pihu</title>
 
   <style>
-    <audio autoplay loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
     body {
       margin: 0;
-      font-family: "Georgia", serif;
+      font-family: Georgia, serif;
       background: #ffffff;
       color: #222;
-      line-height: 1.8;
-    }
-
-    .container {
-      max-width: 720px;
-      margin: auto;
-      padding: 50px 22px;
       text-align: center;
     }
 
-    h1 {
-      font-weight: 500;
-      font-size: 38px;
-      margin-bottom: 10px;
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 50px 20px;
     }
-
-    .intro {
-      font-style: italic;
-      color: #555;
-      margin-bottom: 60px;
-      font-size: 18px;
-    }
-
-    .section {
-      margin-bottom: 70px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 1s ease forwards;
-    }
-
-    .section:nth-child(2) { animation-delay: 0.2s; }
-    .section:nth-child(3) { animation-delay: 0.4s; }
-    .section:nth-child(4) { animation-delay: 0.6s; }
-    .section:nth-child(5) { animation-delay: 0.8s; }
-    .section:nth-child(6) { animation-delay: 1s; }
 
     img {
       width: 100%;
       border-radius: 14px;
-      margin-bottom: 18px;
+      margin-bottom: 25px;
     }
 
     .text {
-      font-size: 19px;
+      font-size: 20px;
+      line-height: 1.7;
       color: #333;
     }
 
-    .closing {
-      margin-top: 90px;
-      font-style: italic;
-      font-size: 19px;
-      color: #555;
-    }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
+
   <div class="container">
+    <img src="image1.jpg" alt="soft aesthetic">
 
-    <h1>Pihu</h1>
-    <div class="intro">
-      Some people feel loud.<br>
-      She feels like meaning.
+    <div class="text">
+      I love the way her mind works.<br>
+      She lives in books,<br>
+      thinks deeply,<br>
+      and feels quietly.
     </div>
-
-    <div class="section">
-      <img src="image1.jpg" alt="books and thoughts">
-      <div class="text">
-        I love the way her mind works.<br>
-        She lives in books,<br>
-        thinks deeply,<br>
-        and feels quietly.
-      </div>
-    </div>
-
-    <div class="section">
-      <img src="image2.jpg" alt="calm aesthetic">
-      <div class="text">
-        She carries a calm that doesn’t try to impress.<br>
-        It simply exists —<br>
-        and changes the space around her.
-      </div>
-    </div>
-
-    <div class="section">
-      <img src="image3.jpg" alt="simple comfort">
-      <div class="text">
-        She knows what she likes.<br>
-        Simple things.<br>
-        Honest choices.<br>
-        Quiet comfort.
-      </div>
-    </div>
-
-    <div class="section">
-      <img src="image4.jpg" alt="paris aesthetic">
-      <div class="text">
-        She romanticizes life.<br>
-        Slow walks.<br>
-        Soft thoughts.<br>
-        Somewhere in her mind, Paris always exists.
-      </div>
-    </div>
-
-    <div class="section">
-      <img src="image5.jpg" alt="peaceful escape">
-      <div class="text">
-        She finds peace in little worlds.<br>
-        In focus.<br>
-        In stillness.<br>
-        In moments that feel like rest.
-      </div>
-    </div>
-
-    <div class="closing">
-      I don’t love her loudly.<br>
-      I love her intentionally.<br>
-      In quiet ways.<br>
-      Every day.
-    </div>
-
   </div>
+
+  <audio id="bgm" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="music-btn" onclick="document.getElementById('bgm').play()">
+    ♫ play
+  </button>
+
 </body>
 </html>
-
