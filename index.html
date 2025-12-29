@@ -17,9 +17,10 @@ body {
   justify-content: center;
   text-align: center;
   color: #ecfdf3;
+  transition: background 3s ease;
 }
 
-/* night overlay */
+/* Night overlay */
 body::before {
   content: "";
   position: fixed;
@@ -35,206 +36,84 @@ body.night::before { opacity: 1; }
 /* ================= CONTENT ================= */
 .content {
   position: relative;
-  z-index: 100;
+  z-index: 20;
   max-width: 520px;
   padding: 40px 20px 80px;
-  transition: opacity 1.2s ease;
 }
 
-/* ================= TITLE ================= */
+/* Title glow */
 .glow {
   color: #fff7e6;
   text-shadow:
-    0 0 4px rgba(255,220,170,.6),
-    0 0 10px rgba(255,200,140,.4),
-    0 0 18px rgba(255,180,120,.25);
-  animation: candleFlicker 2.8s infinite ease-in-out;
+    0 0 6px rgba(255,220,170,.6),
+    0 0 14px rgba(255,200,140,.45),
+    0 0 24px rgba(255,180,120,.25);
+  animation: flicker 3s infinite ease-in-out;
 }
 
-@keyframes candleFlicker {
-  0%,100% {
-    text-shadow:
-      0 0 4px rgba(255,220,170,.6),
-      0 0 10px rgba(255,200,140,.4),
-      0 0 18px rgba(255,180,120,.25);
-  }
-  50% {
-    text-shadow:
-      0 0 7px rgba(255,230,180,.7),
-      0 0 16px rgba(255,200,150,.5),
-      0 0 26px rgba(255,170,120,.35);
-  }
+@keyframes flicker {
+  0%,100% { opacity: 1; }
+  50% { opacity: .85; }
 }
 
-h1 {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
+h1 { font-size: 42px; margin-bottom: 10px; }
+.subtitle { opacity: .9; font-style: italic; }
 
-.subtitle {
-  font-size: 18px;
-  opacity: 0.9;
-  font-style: italic;
-  margin-bottom: 25px;
-}
-
-/* ================= BUTTONS ================= */
+/* Buttons */
 button {
   padding: 10px 26px;
   border-radius: 30px;
-  font-size: 15px;
-  border: 1px solid rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,.4);
   background: transparent;
   color: #ecfdf3;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: .3s;
 }
-
-button:hover {
-  background: rgba(255,255,255,0.15);
-  transform: translateY(-2px);
-}
-
-#nextBtn { margin-bottom: 20px; }
+button:hover { background: rgba(255,255,255,.15); }
 
 #next2Btn {
   margin-top: 30px;
   opacity: 0;
-  pointer-events: auto;
-  transition: opacity 0.6s ease;
+  pointer-events: none;
+  transition: .6s;
 }
-
 #next2Btn.show {
   opacity: 1;
+  pointer-events: auto;
 }
 
-/* ================= TEXT ================= */
+/* Text typing */
 #thanksBox {
   margin-top: 30px;
   opacity: 0;
   transform: translateY(20px);
-  transition: all 1s ease;
+  transition: 1s;
 }
-
 #thanksBox.show {
   opacity: 1;
   transform: translateY(0);
 }
-
 #typewriter {
   font-size: 18px;
   line-height: 1.9;
-  font-style: italic;
   white-space: pre-line;
+  font-style: italic;
 }
 
-/* ================= RAIN ================= */
-.rain {
-  position: fixed;
-  width: 2px;
-  height: 14px;
-  background: rgba(200,255,255,0.35);
-  top: -20px;
-  animation: rainFall linear infinite;
-  z-index: 5;
-}
-
-@keyframes rainFall {
-  to { transform: translateY(110vh); }
-}
-
-/* ================= PETALS ================= */
-.petal {
-  position: fixed;
-  font-size: 18px;
-  opacity: 0.7;
-  animation: petalFall linear infinite;
-  z-index: 5;
-}
-
-@keyframes petalFall {
-  0% { transform: translateY(-10vh) rotate(0deg); }
-  100% { transform: translateY(110vh) rotate(360deg); }
-}
-
-/* ================= MOON ================= */
-.moon {
-  position: fixed;
-  top: 40px;
-  right: 60px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #e6e6e6 60%, #cfcfcf);
-  box-shadow:
-    0 0 30px rgba(255,255,255,.4),
-    0 0 80px rgba(200,220,255,.25);
-  opacity: 0;
-  animation: moonPulse 6s ease-in-out infinite;
-  transition: opacity 3s ease;
-  z-index: 10;
-}
-
-body.night .moon { opacity: 1; }
-
-@keyframes moonPulse {
-  0%,100% {
-    box-shadow:
-      0 0 30px rgba(255,255,255,.4),
-      0 0 80px rgba(200,220,255,.25);
-  }
-  50% {
-    box-shadow:
-      0 0 45px rgba(255,255,255,.7),
-      0 0 120px rgba(200,220,255,.45);
-  }
-}
-
-/* ================= STARS ================= */
-.star {
-  position: fixed;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0;
-  animation: twinkle 3s infinite ease-in-out;
-  z-index: 2;
-}
-
-body.night .star { opacity: 1; }
-
-@keyframes twinkle {
-  0%,100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-
-/* ================= SHOOTING STARS ================= */
-.shooting-star {
-  position: fixed;
-  width: 120px;
-  height: 2px;
-  background: linear-gradient(90deg, white, rgba(255,255,255,0));
-  opacity: 0;
-  transform: rotate(-45deg);
-  animation: shoot 1.2s ease-out forwards;
-  z-index: 6;
-}
-
-@keyframes shoot {
-  0% { opacity: 1; transform: translate(0,0) rotate(-45deg); }
-  100% { opacity: 0; transform: translate(-300px,300px) rotate(-45deg); }
-}
-
-/* ================= GENSHIN SCENE ================= */
+/* ========== GENSHIN-STYLE SCENE ========== */
 #genshinScene {
   position: fixed;
   inset: 0;
-  background: linear-gradient(to bottom, #a7c7ff, #cfe6ff, #f7fbff);
+  background: linear-gradient(
+    to bottom,
+    #a9c8ff,
+    #dbe9ff,
+    #f6fbff
+  );
   opacity: 0;
   pointer-events: none;
   transition: opacity 2s ease;
-  z-index: 200;
+  z-index: 50;
   overflow: hidden;
 }
 
@@ -243,58 +122,71 @@ body.genshin #genshinScene {
   pointer-events: auto;
 }
 
-/* sky texture */
-#genshinScene .sky {
+/* dreamy clouds */
+#genshinScene::before {
+  content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6), transparent 40%),
-    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.5), transparent 45%);
-  animation: skyDrift 20s ease-in-out infinite;
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.6), transparent 40%),
+    radial-gradient(circle at 70% 25%, rgba(255,255,255,.5), transparent 45%);
+  animation: cloudMove 25s ease-in-out infinite;
 }
 
-@keyframes skyDrift {
+@keyframes cloudMove {
   0% { transform: translateX(0); }
-  50% { transform: translateX(-20px); }
+  50% { transform: translateX(-30px); }
   100% { transform: translateX(0); }
 }
 
-/* branch */
+/* Tree branch */
 .branch {
   position: absolute;
   bottom: 40%;
   left: -10%;
   width: 140%;
-  height: 20px;
-  background: linear-gradient(to right, #5a3e2b, #7b5335);
-  border-radius: 20px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  height: 22px;
+  background: linear-gradient(to right, #5b3a25, #7b5335);
+  border-radius: 30px;
+  box-shadow: 0 6px 15px rgba(0,0,0,.25);
+  transform: rotate(-2deg);
 }
 
-/* bird */
+/* Bird */
 .bird {
   position: absolute;
-  font-size: 42px;
-  left: -60px;
-  top: 38%;
+  font-size: 46px;
+  left: -100px;
+  top: 36%;
   animation: birdFly 3s ease-out forwards;
 }
 
+/* Flying animation */
 @keyframes birdFly {
   0% {
-    transform: translateX(-200px) translateY(-40px) scale(0.8);
+    transform: translate(-200px, -80px) scale(.8);
     opacity: 0;
   }
   60% {
-    transform: translateX(50vw) translateY(-20px) scale(1);
+    transform: translate(55vw, -20px) scale(1);
     opacity: 1;
   }
   100% {
-    transform: translateX(60vw) translateY(0) scale(1);
+    transform: translate(62vw, 0) scale(1);
   }
 }
 
-/* genshin text */
+/* Blinking (eye illusion) */
+.bird.blink {
+  animation: blink 4s infinite ease-in-out;
+}
+
+@keyframes blink {
+  0%, 92%, 100% { filter: brightness(1); }
+  95% { filter: brightness(0.3); }
+}
+
+/* Text */
 .genshin-text {
   position: absolute;
   bottom: 18%;
@@ -303,37 +195,20 @@ body.genshin #genshinScene {
   font-size: 26px;
   color: #3b4c6b;
   opacity: 0;
-  animation: textFade 2s ease forwards;
+  animation: fadeIn 2s ease forwards;
   animation-delay: 3s;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  text-shadow: 0 2px 6px rgba(0,0,0,.15);
 }
 
-@keyframes textFade {
+@keyframes fadeIn {
   to { opacity: 1; }
-}
-
-/* music */
-#musicBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 300;
-  padding: 12px 18px;
-  border-radius: 999px;
-  border: none;
-  background: rgba(255,255,255,0.9);
-  font-size: 14px;
-  cursor: pointer;
-  color: #333;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 </style>
 </head>
 
 <body>
 
-<div class="moon"></div>
-
+<!-- MAIN CONTENT -->
 <div class="content">
   <h1 class="glow">for you, princess pihu</h1>
   <div class="subtitle">something gentle, just for you</div>
@@ -346,21 +221,14 @@ body.genshin #genshinScene {
   </div>
 </div>
 
+<!-- GENSHIN SCENE -->
 <div id="genshinScene">
-  <div class="sky"></div>
   <div class="branch"></div>
   <div class="bird">🐦</div>
   <div class="genshin-text">thank you for protecting us, pihu</div>
 </div>
 
-<audio id="bgm" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<button id="musicBtn" onclick="toggleMusic()">▶ play music</button>
-
 <script>
-/* ---------- TEXT LOGIC ---------- */
 const textLines = [
   "Why I chose to continue loving you?",
   "",
@@ -376,104 +244,41 @@ const textLines = [
   "and for your strength."
 ];
 
-let lineIndex = 0;
-let charIndex = 0;
+let lineIndex = 0, charIndex = 0;
 
-document.getElementById("nextBtn").addEventListener("click", () => {
+document.getElementById("nextBtn").onclick = () => {
   document.body.classList.add("night");
   document.getElementById("thanksBox").classList.add("show");
   document.getElementById("nextBtn").disabled = true;
   typeLine();
-});
+};
 
 function typeLine() {
   if (lineIndex >= textLines.length) {
     document.getElementById("next2Btn").classList.add("show");
     return;
   }
-
-  const target = document.getElementById("typewriter");
   const line = textLines[lineIndex];
+  const out = document.getElementById("typewriter");
 
   if (charIndex < line.length) {
-    target.textContent += line.charAt(charIndex);
-    charIndex++;
+    out.textContent += line.charAt(charIndex++);
     setTimeout(typeLine, 45);
   } else {
-    target.textContent += "\n";
+    out.textContent += "\n";
     charIndex = 0;
     lineIndex++;
     setTimeout(typeLine, 500);
   }
 }
 
-/* ---------- SECOND BUTTON ACTION ---------- */
-document.getElementById("next2Btn").addEventListener("click", () => {
+/* Final transition */
+document.getElementById("next2Btn").onclick = () => {
   document.body.classList.add("genshin");
-  document.querySelector(".content").style.opacity = "0";
-});
 
-/* ---------- MUSIC ---------- */
-function toggleMusic() {
-  const audio = document.getElementById("bgm");
-  const btn = document.getElementById("musicBtn");
-
-  if (audio.paused) {
-    audio.play();
-    btn.textContent = "⏸ pause";
-  } else {
-    audio.pause();
-    btn.textContent = "▶ play music";
-  }
-}
-
-/* ---------- RAIN ---------- */
-for (let i = 0; i < 70; i++) {
-  const drop = document.createElement("div");
-  drop.className = "rain";
-  drop.style.left = Math.random() * 100 + "vw";
-  drop.style.animationDuration = 2 + Math.random() * 3 + "s";
-  document.body.appendChild(drop);
-}
-
-/* ---------- PETALS ---------- */
-const petals = ["🌸", "🍃", "🌺"];
-for (let i = 0; i < 15; i++) {
-  const p = document.createElement("div");
-  p.className = "petal";
-  p.textContent = petals[Math.floor(Math.random() * petals.length)];
-  p.style.left = Math.random() * 100 + "vw";
-  p.style.animationDuration = 8 + Math.random() * 10 + "s";
-  p.style.fontSize = 16 + Math.random() * 14 + "px";
-  document.body.appendChild(p);
-}
-
-/* ---------- STARS ---------- */
-for (let i = 0; i < 80; i++) {
-  const s = document.createElement("div");
-  s.className = "star";
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.top = Math.random() * 100 + "vh";
-  s.style.animationDelay = Math.random() * 3 + "s";
-  document.body.appendChild(s);
-}
-
-/* ---------- SHOOTING STARS ---------- */
-function spawnShootingStar() {
-  if (!document.body.classList.contains("night")) return;
-
-  const star = document.createElement("div");
-  star.className = "shooting-star";
-  star.style.top = Math.random() * 40 + "vh";
-  star.style.left = 60 + Math.random() * 40 + "vw";
-  document.body.appendChild(star);
-
-  setTimeout(() => star.remove(), 1200);
-}
-
-setInterval(() => {
-  if (Math.random() < 0.35) spawnShootingStar();
-}, 4000);
+  const bird = document.querySelector(".bird");
+  setTimeout(() => bird.classList.add("blink"), 3000);
+};
 </script>
 
 </body>
