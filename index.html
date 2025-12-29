@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>for you, princess pihu</title>
 
 <style>
@@ -11,105 +11,48 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: "Georgia", serif;
-  background: linear-gradient(to bottom, #2f3e46, #354f52, #52796f, #84a98c);
   overflow-x: hidden;
-  color: #ecfdf3;
-  display: flex;
-  justify-content: center;
+  background: linear-gradient(to bottom, #f7f7f7, #eef3f7);
+  transition: background 2s ease;
 }
 
-/* NIGHT OVERLAY */
-body::before {
-  content: "";
+/* ================= FLOWER INTRO ================= */
+.flower {
   position: fixed;
-  inset: 0;
-  background: linear-gradient(to bottom, #0f172a, #111827, #020617);
+  font-size: 22px;
+  opacity: 0.8;
+  animation: flowerFall linear infinite;
+  z-index: 1;
+}
+
+@keyframes flowerFall {
+  from { transform: translateY(-10vh) rotate(0deg); }
+  to   { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* ================= NIGHT MODE ================= */
+body.night {
+  background: linear-gradient(to bottom, #050b1f, #0b1430);
+}
+
+/* Moon */
+.moon {
+  position: fixed;
+  top: 50px;
+  right: 70px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #dcdcdc 60%);
+  clip-path: ellipse(60% 100% at 70% 50%);
+  box-shadow: 0 0 40px rgba(255,255,255,.6);
   opacity: 0;
-  transition: opacity 3s ease;
-  pointer-events: none;
-  z-index: 0;
+  transition: opacity 2s ease;
+  z-index: 4;
 }
-body.night::before {
-  opacity: 1;
-}
+body.night .moon { opacity: 1; }
 
-/* MAIN CONTENT */
-.content {
-  position: relative;
-  z-index: 20;
-  max-width: 520px;
-  padding: 40px 20px 80px;
-  text-align: center;
-}
-
-/* TITLE */
-.glow {
-  font-size: 42px;
-  color: #fff7e6;
-  text-shadow:
-    0 0 6px rgba(255,220,170,.6),
-    0 0 14px rgba(255,200,140,.4),
-    0 0 24px rgba(255,180,120,.25);
-  animation: flicker 3s infinite ease-in-out;
-}
-
-@keyframes flicker {
-  0%,100% { opacity: 1; }
-  50% { opacity: .85; }
-}
-
-.subtitle {
-  font-style: italic;
-  opacity: .9;
-  margin-bottom: 25px;
-}
-
-/* BUTTONS */
-button {
-  padding: 10px 26px;
-  border-radius: 30px;
-  border: 1px solid rgba(255,255,255,.4);
-  background: transparent;
-  color: #ecfdf3;
-  cursor: pointer;
-  transition: .3s;
-}
-
-button:hover {
-  background: rgba(255,255,255,.15);
-  transform: translateY(-2px);
-}
-
-#next2Btn {
-  opacity: 0;
-  pointer-events: none;
-  margin-top: 30px;
-  transition: .6s;
-}
-#next2Btn.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* TEXT */
-#thanksBox {
-  margin-top: 30px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: 1s;
-}
-#thanksBox.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-#typewriter {
-  white-space: pre-line;
-  font-size: 18px;
-  line-height: 1.9;
-  font-style: italic;
-}
-
-/* ================= STARS ================= */
+/* Stars */
 .star {
   position: fixed;
   width: 2px;
@@ -117,10 +60,8 @@ button:hover {
   background: white;
   border-radius: 50%;
   opacity: 0;
-  animation: twinkle 3s infinite ease-in-out;
-  z-index: 2;
+  animation: twinkle 3s infinite;
 }
-
 body.night .star { opacity: 1; }
 
 @keyframes twinkle {
@@ -128,91 +69,81 @@ body.night .star { opacity: 1; }
   50% { opacity: 1; }
 }
 
-/* SHOOTING STARS */
-.shooting-star {
-  position: fixed;
-  width: 120px;
-  height: 2px;
-  background: linear-gradient(90deg, white, transparent);
+/* ================= CONTENT ================= */
+.content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding-top: 60px;
+}
+
+h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.subtitle {
+  opacity: .9;
+  margin-bottom: 25px;
+}
+
+button {
+  padding: 10px 28px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,.4);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+button:hover {
+  background: rgba(255,255,255,.15);
+}
+
+#next2 {
+  display: none;
+}
+
+/* ================= TEXT TYPING ================= */
+#thanksBox {
+  margin-top: 30px;
   opacity: 0;
-  transform: rotate(-45deg);
-  z-index: 3;
-  animation: shoot 1.2s ease-out forwards;
+  transform: translateY(20px);
+  transition: 1s;
 }
 
-@keyframes shoot {
-  0% { opacity: 1; transform: translate(0,0) rotate(-45deg); }
-  100% { opacity: 0; transform: translate(-300px,300px) rotate(-45deg); }
+#thanksBox.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* MOON */
-.moon {
-  position: fixed;
-  top: 40px;
-  right: 60px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #e6e6e6 60%, #cfcfcf);
-  box-shadow:
-    0 0 30px rgba(255,255,255,.4),
-    0 0 80px rgba(200,220,255,.25);
-  opacity: 0;
-  animation: moonPulse 6s ease-in-out infinite;
-  transition: opacity 3s ease;
-  z-index: 2;
+#typewriter {
+  white-space: pre-line;
+  font-size: 18px;
+  line-height: 1.9;
+  font-style: italic;
 }
 
-body.night .moon { opacity: 1; }
-
-@keyframes moonPulse {
-  0%,100% {
-    box-shadow:
-      0 0 30px rgba(255,255,255,.4),
-      0 0 80px rgba(200,220,255,.25);
-  }
-  50% {
-    box-shadow:
-      0 0 45px rgba(255,255,255,.7),
-      0 0 120px rgba(200,220,255,.45);
-  }
-}
-
-/* GENSHIN SCENE */
-#genshinScene {
+/* ================= DAY / GENSHIN SCENE ================= */
+.scene {
   position: fixed;
   inset: 0;
-  background: linear-gradient(to bottom, #a7c7ff, #e6f1ff, #ffffff);
+  background: linear-gradient(to bottom, #a7c7ff, #eaf4ff);
   opacity: 0;
   pointer-events: none;
   transition: opacity 2s ease;
-  z-index: 40;
-  overflow: hidden;
+  z-index: 20;
 }
 
-body.genshin #genshinScene {
+body.day .scene {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* soft clouds */
-#genshinScene::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.6), transparent 40%),
-    radial-gradient(circle at 70% 30%, rgba(255,255,255,.5), transparent 45%);
-  animation: cloudMove 25s ease-in-out infinite;
-}
-
-@keyframes cloudMove {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(-30px); }
-  100% { transform: translateX(0); }
-}
-
-/* BRANCH */
+/* Branch */
 .branch {
   position: absolute;
   bottom: 40%;
@@ -225,18 +156,24 @@ body.genshin #genshinScene {
   transform: rotate(-2deg);
 }
 
-/* BIRD */
+/* Bird */
 .bird {
   position: absolute;
   font-size: 46px;
-  left: -120px;
+  left: -200px;
   top: 36%;
-  animation: birdFly 3s ease-out forwards;
+  opacity: 0;
 }
 
-@keyframes birdFly {
-  0% { transform: translate(-200px,-80px) scale(.8); opacity: 0; }
-  60% { transform: translate(55vw,-20px) scale(1); opacity: 1; }
+/* fly */
+.bird.fly {
+  animation: flyIn 3s ease-out forwards;
+  opacity: 1;
+}
+
+@keyframes flyIn {
+  0% { transform: translate(-300px,-80px) scale(.8); }
+  60% { transform: translate(55vw,-20px) scale(1); }
   100% { transform: translate(62vw,0) scale(1); }
 }
 
@@ -244,13 +181,14 @@ body.genshin #genshinScene {
 .bird.blink {
   animation: blink 4s infinite;
 }
+
 @keyframes blink {
   0%,92%,100% { filter: brightness(1); }
   95% { filter: brightness(.3); }
 }
 
-/* TEXT */
-.genshin-text {
+/* Final text */
+.final-text {
   position: absolute;
   bottom: 18%;
   width: 100%;
@@ -258,7 +196,7 @@ body.genshin #genshinScene {
   font-size: 26px;
   color: #3b4c6b;
   opacity: 0;
-  animation: fadeIn 2s ease forwards;
+  animation: fadeIn 2s forwards;
   animation-delay: 3s;
 }
 
@@ -270,26 +208,49 @@ body.genshin #genshinScene {
 
 <body>
 
+<div class="moon"></div>
+
 <div class="content">
-  <h1 class="glow">for you, princess pihu</h1>
+  <h1>for you, princess pihu</h1>
   <div class="subtitle">something gentle, just for you</div>
 
-  <button id="nextBtn">next →</button>
+  <button id="next1">next →</button>
+  <br>
+  <button id="next2">next →</button>
 
   <div id="thanksBox">
     <p id="typewriter"></p>
-    <button id="next2Btn">next →</button>
   </div>
 </div>
 
-<!-- GENSHIN SCENE -->
-<div id="genshinScene">
+<div class="scene">
   <div class="branch"></div>
-  <div class="bird">🐦</div>
-  <div class="genshin-text">thank you for protecting us, pihu</div>
+  <div class="bird" id="bird">🐦</div>
+  <div class="final-text">thank you for protecting us, pihu</div>
 </div>
 
 <script>
+/* FLOWERS */
+for (let i = 0; i < 25; i++) {
+  const f = document.createElement("div");
+  f.className = "flower";
+  f.textContent = ["🌸","🍃","🌼"][Math.floor(Math.random()*3)];
+  f.style.left = Math.random()*100 + "vw";
+  f.style.animationDuration = 6 + Math.random()*6 + "s";
+  document.body.appendChild(f);
+}
+
+/* STARS */
+for (let i = 0; i < 80; i++) {
+  const s = document.createElement("div");
+  s.className = "star";
+  s.style.left = Math.random()*100 + "vw";
+  s.style.top = Math.random()*100 + "vh";
+  s.style.animationDelay = Math.random()*3 + "s";
+  document.body.appendChild(s);
+}
+
+/* YOUR ORIGINAL TEXT (UNCHANGED) */
 const textLines = [
   "Why I chose to continue loving you?",
   "",
@@ -305,65 +266,42 @@ const textLines = [
   "and for your strength."
 ];
 
-let lineIndex = 0, charIndex = 0;
+let line = 0, char = 0;
 
-document.getElementById("nextBtn").onclick = () => {
+document.getElementById("next1").onclick = () => {
   document.body.classList.add("night");
   document.getElementById("thanksBox").classList.add("show");
-  document.getElementById("nextBtn").disabled = true;
-  typeLine();
+  document.getElementById("next1").style.display = "none";
+  document.getElementById("next2").style.display = "inline-block";
+  typeText();
 };
 
-function typeLine() {
-  if (lineIndex >= textLines.length) {
-    document.getElementById("next2Btn").classList.add("show");
-    return;
-  }
+function typeText() {
+  if (line >= textLines.length) return;
 
   const target = document.getElementById("typewriter");
-  const line = textLines[lineIndex];
-
-  if (charIndex < line.length) {
-    target.textContent += line.charAt(charIndex++);
-    setTimeout(typeLine, 45);
+  if (char < textLines[line].length) {
+    target.textContent += textLines[line][char++];
+    setTimeout(typeText, 45);
   } else {
     target.textContent += "\n";
-    charIndex = 0;
-    lineIndex++;
-    setTimeout(typeLine, 500);
+    char = 0;
+    line++;
+    setTimeout(typeText, 500);
   }
 }
 
-/* FINAL TRANSITION */
-document.getElementById("next2Btn").onclick = () => {
-  document.body.classList.add("genshin");
-  setTimeout(() => {
-    document.querySelector(".bird").classList.add("blink");
-  }, 2500);
+document.getElementById("next2").onclick = () => {
+  document.body.classList.remove("night");
+  document.body.classList.add("day");
+
+  const bird = document.getElementById("bird");
+  bird.classList.remove("fly","blink");
+  void bird.offsetWidth;
+  bird.classList.add("fly");
+
+  setTimeout(() => bird.classList.add("blink"), 3000);
 };
-
-/* STARS */
-for (let i = 0; i < 80; i++) {
-  const s = document.createElement("div");
-  s.className = "star";
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.top = Math.random() * 100 + "vh";
-  s.style.animationDelay = Math.random() * 3 + "s";
-  document.body.appendChild(s);
-}
-
-/* SHOOTING STARS */
-setInterval(() => {
-  if (!document.body.classList.contains("night")) return;
-  if (Math.random() < 0.35) {
-    const s = document.createElement("div");
-    s.className = "shooting-star";
-    s.style.top = Math.random() * 40 + "vh";
-    s.style.left = 60 + Math.random() * 40 + "vw";
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 1200);
-  }
-}, 4000);
 </script>
 
 </body>
