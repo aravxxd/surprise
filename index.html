@@ -11,45 +11,62 @@
       height: 100vh;
       overflow: hidden;
       font-family: "Georgia", serif;
-
       background: linear-gradient(
-        180deg,
-        #e8f5f0 0%,
-        #f6fbf9 50%,
-        #ffffff 100%
+        to bottom,
+        #2f3e46,
+        #354f52,
+        #52796f,
+        #84a98c
       );
-
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      color: #ecfdf3;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
     }
 
     h1 {
       font-size: 42px;
       font-weight: 500;
-      color: #2f4f4f;
-      letter-spacing: 1px;
-      z-index: 5;
-      position: relative;
+      margin-bottom: 10px;
     }
 
     .subtitle {
-      margin-top: 12px;
       font-size: 18px;
-      color: #6b8f86;
+      opacity: 0.9;
+      margin-bottom: 25px;
       font-style: italic;
-      z-index: 5;
-      position: relative;
     }
 
-    /* 🌧 Soft rain */
+    /* NEXT BUTTON */
+    #nextBtn {
+      padding: 10px 26px;
+      border-radius: 30px;
+      font-size: 15px;
+      border: 1px solid rgba(255,255,255,0.4);
+      background: transparent;
+      color: #ecfdf3;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #nextBtn:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
+
+    /* 🌧️ Minecraft-style rain */
     .rain {
       position: absolute;
-      width: 1.5px;
-      height: 18px;
-      background: rgba(120, 170, 160, 0.25);
-      top: -30px;
+      width: 2px;
+      height: 14px;
+      background: rgba(200, 255, 255, 0.35);
+      top: -20px;
       animation: rainFall linear infinite;
     }
 
@@ -59,15 +76,15 @@
       }
     }
 
-    /* 🍃 Floating leaves */
-    .leaf {
+    /* 🌸 Petals */
+    .petal {
       position: absolute;
       font-size: 18px;
-      opacity: 0.5;
-      animation: leafFloat linear infinite;
+      opacity: 0.7;
+      animation: petalFall linear infinite;
     }
 
-    @keyframes leafFloat {
+    @keyframes petalFall {
       0% {
         transform: translateY(-10vh) rotate(0deg);
       }
@@ -75,127 +92,76 @@
         transform: translateY(110vh) rotate(360deg);
       }
     }
-    #nextBtn {
-  margin-top: 25px;
-  padding: 10px 22px;
 
-  font-size: 15px;
-  font-family: inherit;
-
-  background: transparent;
-  color: #2f4f4f;
-
-  border: 1px solid rgba(47, 79, 79, 0.4);
-  border-radius: 30px;
-
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#nextBtn:hover {
-  background: rgba(47, 79, 79, 0.1);
-  transform: translateY(-2px);
-}
-
+    /* Music button */
+    #musicBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      font-size: 14px;
+      cursor: pointer;
+      color: #333;
+    }
   </style>
 </head>
 
 <body>
-<audio id="bgm" preload="auto" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
 
-<button id="musicBtn">▶ play music</button>
-
-<style>
-#musicBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 12px 18px;
-  border-radius: 999px;
-  border: none;
-  background: rgba(255,255,255,0.9);
-  font-size: 14px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-</style>
-
-<script>
-const btn = document.getElementById("musicBtn");
-const audio = document.getElementById("bgm");
-
-btn.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play();
-    btn.textContent = "⏸ pause";
-  } else {
-    audio.pause();
-    btn.textContent = "▶ play music";
-  }
-});
-</script>
-
-  <div>
+  <div class="content">
     <h1>for you, queen</h1>
-   <div class="subtitle">something gentle, just for you</div>
-
-<button id="nextBtn">next →</button>
-
+    <div class="subtitle">something gentle, just for you</div>
+    <button id="nextBtn">next →</button>
   </div>
 
+  <!-- MUSIC -->
+  <audio id="bgm" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="musicBtn" onclick="toggleMusic()">▶ play music</button>
+
   <script>
-    // 🌧 Softer rain (fewer drops, slower)
-    for (let i = 0; i < 35; i++) {
+    // MUSIC
+    function toggleMusic() {
+      const audio = document.getElementById("bgm");
+      const btn = document.getElementById("musicBtn");
+
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = "⏸ pause";
+      } else {
+        audio.pause();
+        btn.textContent = "▶ play music";
+      }
+    }
+
+    // 🌧️ Minecraft-style rain
+    for (let i = 0; i < 70; i++) {
       const drop = document.createElement("div");
       drop.className = "rain";
       drop.style.left = Math.random() * 100 + "vw";
-      drop.style.animationDuration = 4 + Math.random() * 4 + "s";
-      drop.style.opacity = Math.random() * 0.4;
+      drop.style.animationDuration = 2 + Math.random() * 3 + "s";
       document.body.appendChild(drop);
     }
 
-    // 🍃 Slower floating leaves
-    const leaves = ["🍃", "🍂"];
+    // 🌸 Petals
+    const petals = ["🌸", "🌺", "🍃"];
 
-    for (let i = 0; i < 10; i++) {
-      const leaf = document.createElement("div");
-      leaf.className = "leaf";
-      leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
-      leaf.style.left = Math.random() * 100 + "vw";
-      leaf.style.animationDuration = 10 + Math.random() * 10 + "s";
-      leaf.style.fontSize = 14 + Math.random() * 16 + "px";
-      document.body.appendChild(leaf);
+    for (let i = 0; i < 15; i++) {
+      const petal = document.createElement("div");
+      petal.className = "petal";
+      petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.animationDuration = 8 + Math.random() * 10 + "s";
+      petal.style.fontSize = 16 + Math.random() * 14 + "px";
+      document.body.appendChild(petal);
     }
   </script>
-<audio id="bgm" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<button onclick="document.getElementById('bgm').play()"
-style="
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 16px;
-  border-radius: 20px;
-  border: none;
-  background: rgba(255,255,255,0.85);
-  font-size: 14px;
-  cursor: pointer;
-">
-  ♫ play music
-</button>
-  <script>
-document.getElementById("nextBtn").addEventListener("click", () => {
-  window.scrollTo({
-    top: window.innerHeight,
-    behavior: "smooth"
-  });
-});
-</script>
-
 
 </body>
 </html>
