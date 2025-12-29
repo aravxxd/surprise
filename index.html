@@ -6,27 +6,43 @@
   <title>for you, princess pihu</title>
 
   <style>
-    .glow {
-  color: #f5fff9;
+  .glow {
+  color: #fff7e6;
   text-shadow:
-    0 0 6px rgba(180, 255, 220, 0.6),
-    0 0 12px rgba(160, 230, 200, 0.4),
-    0 0 20px rgba(120, 200, 170, 0.25);
-  animation: glowPulse 3s ease-in-out infinite;
+    0 0 4px rgba(255, 220, 170, 0.6),
+    0 0 10px rgba(255, 200, 140, 0.4),
+    0 0 18px rgba(255, 180, 120, 0.25);
+  animation: candleFlicker 2.8s infinite ease-in-out;
 }
 
-@keyframes glowPulse {
-  0%, 100% {
+/* Candle-like gentle flicker */
+@keyframes candleFlicker {
+  0% {
     text-shadow:
-      0 0 6px rgba(180, 255, 220, 0.6),
-      0 0 12px rgba(160, 230, 200, 0.4),
-      0 0 20px rgba(120, 200, 170, 0.25);
+      0 0 4px rgba(255, 220, 170, 0.6),
+      0 0 10px rgba(255, 200, 140, 0.4),
+      0 0 18px rgba(255, 180, 120, 0.25);
   }
-  50% {
+
+  30% {
     text-shadow:
-      0 0 10px rgba(200, 255, 230, 0.8),
-      0 0 18px rgba(170, 240, 210, 0.6),
-      0 0 30px rgba(140, 220, 190, 0.4);
+      0 0 6px rgba(255, 230, 180, 0.7),
+      0 0 14px rgba(255, 210, 160, 0.5),
+      0 0 22px rgba(255, 190, 140, 0.35);
+  }
+
+  60% {
+    text-shadow:
+      0 0 3px rgba(255, 210, 160, 0.5),
+      0 0 8px rgba(255, 190, 140, 0.35),
+      0 0 14px rgba(255, 170, 120, 0.25);
+  }
+
+  100% {
+    text-shadow:
+      0 0 4px rgba(255, 220, 170, 0.6),
+      0 0 10px rgba(255, 200, 140, 0.4),
+      0 0 18px rgba(255, 180, 120, 0.25);
   }
 }
 
@@ -137,7 +153,7 @@
 <body>
 
   <div class="content">
-    <h1>for you, princess pihu</h1>
+    <h1 class="glow">for you, princess pihu</h1>
 
     <div class="subtitle">something gentle, just for you</div>
     <button id="nextBtn">next →</button>
