@@ -6,51 +6,12 @@
   <title>for you, princess pihu</title>
 
   <style>
-  .glow {
-  color: #fff7e6;
-  text-shadow:
-    0 0 4px rgba(255, 220, 170, 0.6),
-    0 0 10px rgba(255, 200, 140, 0.4),
-    0 0 18px rgba(255, 180, 120, 0.25);
-  animation: candleFlicker 2.8s infinite ease-in-out;
-}
-
-/* Candle-like gentle flicker */
-@keyframes candleFlicker {
-  0% {
-    text-shadow:
-      0 0 4px rgba(255, 220, 170, 0.6),
-      0 0 10px rgba(255, 200, 140, 0.4),
-      0 0 18px rgba(255, 180, 120, 0.25);
-  }
-
-  30% {
-    text-shadow:
-      0 0 6px rgba(255, 230, 180, 0.7),
-      0 0 14px rgba(255, 210, 160, 0.5),
-      0 0 22px rgba(255, 190, 140, 0.35);
-  }
-
-  60% {
-    text-shadow:
-      0 0 3px rgba(255, 210, 160, 0.5),
-      0 0 8px rgba(255, 190, 140, 0.35),
-      0 0 14px rgba(255, 170, 120, 0.25);
-  }
-
-  100% {
-    text-shadow:
-      0 0 4px rgba(255, 220, 170, 0.6),
-      0 0 10px rgba(255, 200, 140, 0.4),
-      0 0 18px rgba(255, 180, 120, 0.25);
-  }
-}
-
     body {
       margin: 0;
       height: 100vh;
       overflow: hidden;
       font-family: "Georgia", serif;
+
       background: linear-gradient(
         to bottom,
         #2f3e46,
@@ -58,6 +19,7 @@
         #52796f,
         #84a98c
       );
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -68,6 +30,39 @@
     .content {
       position: relative;
       z-index: 10;
+      max-width: 500px;
+      padding: 20px;
+    }
+
+    /* Candle glow */
+    .glow {
+      color: #fff7e6;
+      text-shadow:
+        0 0 4px rgba(255, 220, 170, 0.6),
+        0 0 10px rgba(255, 200, 140, 0.4),
+        0 0 18px rgba(255, 180, 120, 0.25);
+      animation: candleFlicker 2.8s infinite ease-in-out;
+    }
+
+    @keyframes candleFlicker {
+      0%, 100% {
+        text-shadow:
+          0 0 4px rgba(255, 220, 170, 0.6),
+          0 0 10px rgba(255, 200, 140, 0.4),
+          0 0 18px rgba(255, 180, 120, 0.25);
+      }
+      40% {
+        text-shadow:
+          0 0 6px rgba(255, 230, 180, 0.7),
+          0 0 14px rgba(255, 210, 160, 0.5),
+          0 0 24px rgba(255, 190, 140, 0.35);
+      }
+      70% {
+        text-shadow:
+          0 0 3px rgba(255, 210, 160, 0.5),
+          0 0 8px rgba(255, 190, 140, 0.35),
+          0 0 14px rgba(255, 170, 120, 0.25);
+      }
     }
 
     h1 {
@@ -79,8 +74,8 @@
     .subtitle {
       font-size: 18px;
       opacity: 0.9;
-      margin-bottom: 25px;
       font-style: italic;
+      margin-bottom: 25px;
     }
 
     /* NEXT BUTTON */
@@ -100,7 +95,28 @@
       transform: translateY(-2px);
     }
 
-    /* 🌧️ Minecraft-style rain */
+    /* THANK YOU MESSAGE */
+    #thanksBox {
+      margin-top: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease;
+      pointer-events: none;
+    }
+
+    #thanksBox.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .thanks-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #f7f3e8;
+      font-style: italic;
+    }
+
+    /* Rain */
     .rain {
       position: absolute;
       width: 2px;
@@ -116,7 +132,7 @@
       }
     }
 
-    /* 🌸 Petals */
+    /* Petals */
     .petal {
       position: absolute;
       font-size: 18px;
@@ -146,6 +162,7 @@
       font-size: 14px;
       cursor: pointer;
       color: #333;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
   </style>
 </head>
@@ -154,9 +171,17 @@
 
   <div class="content">
     <h1 class="glow">for you, princess pihu</h1>
-
     <div class="subtitle">something gentle, just for you</div>
+
     <button id="nextBtn">next →</button>
+
+    <div id="thanksBox">
+      <p class="thanks-text">
+        thank you for being exactly who you are.<br>
+        for the softness, the warmth,<br>
+        and the quiet magic you carry.
+      </p>
+    </div>
   </div>
 
   <!-- MUSIC -->
@@ -167,7 +192,12 @@
   <button id="musicBtn" onclick="toggleMusic()">▶ play music</button>
 
   <script>
-    // MUSIC
+    // NEXT button reveal
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      document.getElementById("thanksBox").classList.add("show");
+    });
+
+    // Music toggle
     function toggleMusic() {
       const audio = document.getElementById("bgm");
       const btn = document.getElementById("musicBtn");
@@ -181,7 +211,7 @@
       }
     }
 
-    // 🌧️ Minecraft-style rain
+    // Rain
     for (let i = 0; i < 70; i++) {
       const drop = document.createElement("div");
       drop.className = "rain";
@@ -190,9 +220,8 @@
       document.body.appendChild(drop);
     }
 
-    // 🌸 Petals
-    const petals = ["🌸", "🌺", "🍃"];
-
+    // Petals
+    const petals = ["🌸", "🍃", "🌺"];
     for (let i = 0; i < 15; i++) {
       const petal = document.createElement("div");
       petal.className = "petal";
