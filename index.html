@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>for you, princess pihu</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>for you, princess pihu</title>
 
-  <style>
-   body {
+<style>
+/* ================= BASE ================= */
+body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
   font-family: "Georgia", serif;
-  background: linear-gradient(
-    to bottom,
-    #2f3e46,
-    #354f52,
-    #52796f,
-    #84a98c
-  );
+  background: linear-gradient(to bottom, #2f3e46, #354f52, #52796f, #84a98c);
   display: flex;
   justify-content: center;
   text-align: center;
@@ -26,201 +21,150 @@
   transition: background 3s ease;
 }
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #ecfdf3;
-      transition: background 3s ease;
-    }
-
-    /* Night mode */
-    body.night {
-      background: linear-gradient(
-        to bottom,
-        #0f172a,
-        #111827,
-        #020617
-      );
-    }
-    <div class="moon"></div>
-
-
-    .content {
-      position: relative;
-      z-index: 10;
-      max-width: 520px;
-      padding: 20px;
-    }
-
-    /* Candle glow */
-    .glow {
-      color: #fff7e6;
-      text-shadow:
-        0 0 4px rgba(255, 220, 170, 0.6),
-        0 0 10px rgba(255, 200, 140, 0.4),
-        0 0 18px rgba(255, 180, 120, 0.25);
-      animation: candleFlicker 2.8s infinite ease-in-out;
-    }
-
-    body.night .glow {
-      text-shadow:
-        0 0 6px rgba(255, 210, 160, 0.7),
-        0 0 14px rgba(255, 180, 120, 0.5),
-        0 0 28px rgba(255, 150, 100, 0.35);
-    }
-
-    @keyframes candleFlicker {
-      0%, 100% {
-        text-shadow:
-          0 0 4px rgba(255, 220, 170, 0.6),
-          0 0 10px rgba(255, 200, 140, 0.4),
-          0 0 18px rgba(255, 180, 120, 0.25);
-      }
-      40% {
-        text-shadow:
-          0 0 6px rgba(255, 230, 180, 0.7),
-          0 0 14px rgba(255, 210, 160, 0.5),
-          0 0 24px rgba(255, 190, 140, 0.35);
-      }
-      70% {
-        text-shadow:
-          0 0 3px rgba(255, 210, 160, 0.5),
-          0 0 8px rgba(255, 190, 140, 0.35),
-          0 0 14px rgba(255, 170, 120, 0.25);
-      }
-    }
-
-    h1 {
-      font-size: 42px;
-      font-weight: 500;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      font-size: 18px;
-      opacity: 0.9;
-      font-style: italic;
-      margin-bottom: 25px;
-    }
-
-    #nextBtn {
-      padding: 10px 26px;
-      border-radius: 30px;
-      font-size: 15px;
-      border: 1px solid rgba(255,255,255,0.4);
-      background: transparent;
-      color: #ecfdf3;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    #nextBtn:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-2px);
-    }
-
-    #thanksBox {
-      margin-top: 40px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 1s ease;
-      pointer-events: none;
-    }
-
-    #thanksBox.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    #typewriter {
-      font-size: 18px;
-      line-height: 1.9;
-      color: #f7f3e8;
-      font-style: italic;
-      max-width: 520px;
-      margin: 0 auto;
-      white-space: pre-line;
-    }
-    // ⭐ Create stars
-for (let i = 0; i < 80; i++) {
-  const star = document.createElement("div");
-  star.className = "star";
-  star.style.left = Math.random() * 100 + "vw";
-  star.style.top = Math.random() * 100 + "vh";
-  star.style.animationDelay = Math.random() * 3 + "s";
-  document.body.appendChild(star);
-}
-
-
-    /* Rain */
-    .rain {
-      position: absolute;
-      width: 2px;
-      height: 14px;
-      background: rgba(200, 255, 255, 0.35);
-      top: -20px;
-      animation: rainFall linear infinite;
-    }
-
-    body.night .rain {
-      background: rgba(180, 200, 255, 0.25);
-    }
-
-    @keyframes rainFall {
-      to { transform: translateY(110vh); }
-    }
-
-    /* Petals */
-    .petal {
-      position: absolute;
-      font-size: 18px;
-      opacity: 0.7;
-      animation: petalFall linear infinite;
-    }
-
-    @keyframes petalFall {
-      0% { transform: translateY(-10vh) rotate(0deg); }
-      100% { transform: translateY(110vh) rotate(360deg); }
-    }
-
-    /* Music */
-    #musicBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 999;
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(255,255,255,0.9);
-      font-size: 14px;
-      cursor: pointer;
-      color: #333;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    }
-    /* Night overlay layer */
+/* Night overlay */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    #0f172a,
-    #111827,
-    #020617
-  );
+  background: linear-gradient(to bottom, #0f172a, #111827, #020617);
   opacity: 0;
   pointer-events: none;
   transition: opacity 3s ease;
-  z-index: 1;
+  z-index: 0;
 }
 
-/* Activate night */
 body.night::before {
   opacity: 1;
 }
-/* 🌙 Moon with pulsing glow */
+
+/* ================= CONTENT ================= */
+.content {
+  position: relative;
+  z-index: 20;
+  max-width: 520px;
+  padding: 40px 20px 80px;
+}
+
+/* ================= TITLE ================= */
+.glow {
+  color: #fff7e6;
+  text-shadow:
+    0 0 4px rgba(255,220,170,.6),
+    0 0 10px rgba(255,200,140,.4),
+    0 0 18px rgba(255,180,120,.25);
+  animation: candleFlicker 2.8s infinite ease-in-out;
+}
+
+@keyframes candleFlicker {
+  0%,100% {
+    text-shadow:
+      0 0 4px rgba(255,220,170,.6),
+      0 0 10px rgba(255,200,140,.4),
+      0 0 18px rgba(255,180,120,.25);
+  }
+  50% {
+    text-shadow:
+      0 0 7px rgba(255,230,180,.7),
+      0 0 16px rgba(255,200,150,.5),
+      0 0 26px rgba(255,170,120,.35);
+  }
+}
+
+h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 18px;
+  opacity: 0.9;
+  font-style: italic;
+  margin-bottom: 25px;
+}
+
+/* ================= BUTTONS ================= */
+button {
+  padding: 10px 26px;
+  border-radius: 30px;
+  font-size: 15px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: transparent;
+  color: #ecfdf3;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+}
+
+#nextBtn {
+  margin-bottom: 20px;
+}
+
+#next2Btn {
+  margin-top: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.6s ease;
+}
+
+#next2Btn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ================= TEXT AREA ================= */
+#thanksBox {
+  margin-top: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease;
+}
+
+#thanksBox.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#typewriter {
+  font-size: 18px;
+  line-height: 1.9;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+/* ================= RAIN ================= */
+.rain {
+  position: fixed;
+  width: 2px;
+  height: 14px;
+  background: rgba(200,255,255,0.35);
+  top: -20px;
+  animation: rainFall linear infinite;
+  z-index: 3;
+}
+
+@keyframes rainFall {
+  to { transform: translateY(110vh); }
+}
+
+/* ================= PETALS ================= */
+.petal {
+  position: fixed;
+  font-size: 18px;
+  opacity: 0.7;
+  animation: petalFall linear infinite;
+  z-index: 3;
+}
+
+@keyframes petalFall {
+  0% { transform: translateY(-10vh) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* ================= MOON ================= */
 .moon {
   position: fixed;
   top: 40px;
@@ -230,11 +174,11 @@ body.night::before {
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #fff, #e6e6e6 60%, #cfcfcf);
   box-shadow:
-    0 0 30px rgba(255, 255, 255, 0.4),
-    0 0 80px rgba(200, 220, 255, 0.25);
+    0 0 30px rgba(255,255,255,.4),
+    0 0 80px rgba(200,220,255,.25);
   opacity: 0;
-  animation: moonPulse 6s ease-in-out infinite;
   transition: opacity 3s ease;
+  animation: moonPulse 6s ease-in-out infinite;
   z-index: 2;
 }
 
@@ -243,25 +187,19 @@ body.night .moon {
 }
 
 @keyframes moonPulse {
-  0% {
+  0%,100% {
     box-shadow:
-      0 0 30px rgba(255,255,255,0.4),
-      0 0 80px rgba(200,220,255,0.25);
+      0 0 30px rgba(255,255,255,.4),
+      0 0 80px rgba(200,220,255,.25);
   }
   50% {
     box-shadow:
-      0 0 45px rgba(255,255,255,0.7),
-      0 0 120px rgba(200,220,255,0.45);
-  }
-  100% {
-    box-shadow:
-      0 0 30px rgba(255,255,255,0.4),
-      0 0 80px rgba(200,220,255,0.25);
+      0 0 45px rgba(255,255,255,.7),
+      0 0 120px rgba(200,220,255,.45);
   }
 }
 
-
-/* ⭐ Stars */
+/* ================= STARS ================= */
 .star {
   position: fixed;
   width: 2px;
@@ -270,6 +208,7 @@ body.night .moon {
   border-radius: 50%;
   opacity: 0;
   animation: twinkle 3s infinite ease-in-out;
+  z-index: 1;
 }
 
 body.night .star {
@@ -277,10 +216,11 @@ body.night .star {
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
+  0%,100% { opacity: 0.3; }
   50% { opacity: 1; }
 }
-/* 🌠 Shooting stars */
+
+/* ================= SHOOTING STARS ================= */
 .shooting-star {
   position: fixed;
   width: 120px;
@@ -303,131 +243,150 @@ body.night .star {
   }
 }
 
-
-  </style>
+/* ================= MUSIC BUTTON ================= */
+#musicBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 30;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255,255,255,0.9);
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+</style>
 </head>
 
 <body>
 
-  <div class="content">
-    <h1 class="glow">for you, princess pihu</h1>
-    <div class="subtitle">something gentle, just for you</div>
+<div class="moon"></div>
 
-    <button id="nextBtn">next →</button>
+<div class="content">
+  <h1 class="glow">for you, princess pihu</h1>
+  <div class="subtitle">something gentle, just for you</div>
 
-    <div id="thanksBox">
-      <p id="typewriter"></p>
-    </div>
+  <button id="nextBtn">next →</button>
+
+  <div id="thanksBox">
+    <p id="typewriter"></p>
+    <button id="next2Btn">next →</button>
   </div>
+</div>
 
-  <audio id="bgm" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-  <button id="musicBtn" onclick="toggleMusic()">▶ play music</button>
+<button id="musicBtn" onclick="toggleMusic()">▶ play music</button>
 
-  <script>
-    const textLines = [
-      "Why I chose to continue loving you?",
-      "",
-      "Because you are not replaceable, princess.",
-      "Not because you try to be perfect —",
-      "but because of who you are.",
-      "",
-      "You’re adorable in the way you feel things deeply,",
-      "and strong in the way you keep going anyway.",
-      "",
-      "That’s why I chose to love you —",
-      "for your softness,",
-      "and for your strength."
-    ];
+<script>
+const textLines = [
+  "Why I chose to continue loving you?",
+  "",
+  "Because you are not replaceable, princess.",
+  "Not because you try to be perfect —",
+  "but because of who you are.",
+  "",
+  "You’re adorable in the way you feel things deeply,",
+  "and strong in the way you keep going anyway.",
+  "",
+  "That’s why I chose to love you —",
+  "for your softness,",
+  "and for your strength."
+];
 
-    let lineIndex = 0;
-    let charIndex = 0;
+let lineIndex = 0;
+let charIndex = 0;
 
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      document.body.classList.add("night");
-      document.getElementById("thanksBox").classList.add("show");
-      document.getElementById("nextBtn").disabled = true;
-      typeLine();
-    });
+document.getElementById("nextBtn").addEventListener("click", () => {
+  document.body.classList.add("night");
+  document.getElementById("thanksBox").classList.add("show");
+  document.getElementById("nextBtn").disabled = true;
+  typeLine();
+});
 
-    function typeLine() {
-      if (lineIndex >= textLines.length) return;
+function typeLine() {
+  if (lineIndex >= textLines.length) {
+    document.getElementById("next2Btn").classList.add("show");
+    return;
+  }
 
-      const currentLine = textLines[lineIndex];
-      const target = document.getElementById("typewriter");
+  const target = document.getElementById("typewriter");
+  const line = textLines[lineIndex];
 
-      if (charIndex < currentLine.length) {
-        target.textContent += currentLine.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeLine, 45);
-      } else {
-        target.textContent += "\n";
-        charIndex = 0;
-        lineIndex++;
-        setTimeout(typeLine, 500);
-      }
-    }
+  if (charIndex < line.length) {
+    target.textContent += line.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeLine, 45);
+  } else {
+    target.textContent += "\n";
+    charIndex = 0;
+    lineIndex++;
+    setTimeout(typeLine, 500);
+  }
+}
 
-    function toggleMusic() {
-      const audio = document.getElementById("bgm");
-      const btn = document.getElementById("musicBtn");
+/* Optional second button */
+document.getElementById("next2Btn").addEventListener("click", () => {
+  alert("Next chapter coming soon ✨");
+});
 
-      if (audio.paused) {
-        audio.play();
-        btn.textContent = "⏸ pause";
-      } else {
-        audio.pause();
-        btn.textContent = "▶ play music";
-      }
-    }
+/* Music toggle */
+function toggleMusic() {
+  const audio = document.getElementById("bgm");
+  const btn = document.getElementById("musicBtn");
 
-    // Rain
-    for (let i = 0; i < 70; i++) {
-      const drop = document.createElement("div");
-      drop.className = "rain";
-      drop.style.left = Math.random() * 100 + "vw";
-      drop.style.animationDuration = 2 + Math.random() * 3 + "s";
-      document.body.appendChild(drop);
-    }
+  if (audio.paused) {
+    audio.play();
+    btn.textContent = "⏸ pause";
+  } else {
+    audio.pause();
+    btn.textContent = "▶ play music";
+  }
+}
 
-    // Petals
-    const petals = ["🌸", "🍃", "🌺"];
-    for (let i = 0; i < 15; i++) {
-      const petal = document.createElement("div");
-      petal.className = "petal";
-      petal.textContent = petals[Math.floor(Math.random() * petals.length)];
-      petal.style.left = Math.random() * 100 + "vw";
-      petal.style.animationDuration = 8 + Math.random() * 10 + "s";
-      petal.style.fontSize = 16 + Math.random() * 14 + "px";
-      document.body.appendChild(petal);
-    }
-    // 🌠 Shooting stars (random)
+/* Rain */
+for (let i = 0; i < 70; i++) {
+  const drop = document.createElement("div");
+  drop.className = "rain";
+  drop.style.left = Math.random() * 100 + "vw";
+  drop.style.animationDuration = 2 + Math.random() * 3 + "s";
+  document.body.appendChild(drop);
+}
+
+/* Petals */
+const petals = ["🌸", "🍃", "🌺"];
+for (let i = 0; i < 15; i++) {
+  const petal = document.createElement("div");
+  petal.className = "petal";
+  petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.animationDuration = 8 + Math.random() * 10 + "s";
+  petal.style.fontSize = 16 + Math.random() * 14 + "px";
+  document.body.appendChild(petal);
+}
+
+/* Shooting stars */
 function spawnShootingStar() {
   if (!document.body.classList.contains("night")) return;
 
   const star = document.createElement("div");
   star.className = "shooting-star";
-
   star.style.top = Math.random() * 40 + "vh";
   star.style.left = 60 + Math.random() * 40 + "vw";
-
   document.body.appendChild(star);
 
-  setTimeout(() => {
-    star.remove();
-  }, 1200);
+  setTimeout(() => star.remove(), 1200);
 }
 
-// spawn shooting stars occasionally
 setInterval(() => {
-  if (Math.random() < 0.35) {
-    spawnShootingStar();
-  }
+  if (Math.random() < 0.35) spawnShootingStar();
 }, 4000);
-
-  </script>
+</script>
 
 </body>
 </html>
