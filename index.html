@@ -6,6 +6,103 @@
 <title>for you, princess pihu</title>
 
 <style>
+
+  /* ================= Genshin-like Scene ================= */
+
+#genshinScene {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    #a7c7ff,
+    #cfe6ff,
+    #f7fbff
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+  z-index: 50;
+  overflow: hidden;
+}
+
+/* activate scene */
+body.genshin #genshinScene {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* soft sky motion */
+#genshinScene .sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.5), transparent 45%);
+  animation: skyDrift 20s ease-in-out infinite;
+}
+
+@keyframes skyDrift {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+  100% { transform: translateX(0); }
+}
+
+/* Tree branch */
+.branch {
+  position: absolute;
+  bottom: 40%;
+  left: -10%;
+  width: 140%;
+  height: 20px;
+  background: linear-gradient(to right, #5a3e2b, #7b5335);
+  border-radius: 20px;
+  transform: rotate(-2deg);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Bird */
+.bird {
+  position: absolute;
+  font-size: 42px;
+  left: -60px;
+  top: 38%;
+  animation: birdFly 3s ease-out forwards;
+}
+
+/* Bird flying in */
+@keyframes birdFly {
+  0% {
+    transform: translateX(-200px) translateY(-40px) scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(50vw) translateY(-20px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(60vw) translateY(0) scale(1);
+  }
+}
+
+/* Text */
+.genshin-text {
+  position: absolute;
+  bottom: 18%;
+  width: 100%;
+  text-align: center;
+  font-size: 26px;
+  font-family: "Georgia", serif;
+  color: #3b4c6b;
+  opacity: 0;
+  animation: textFade 2s ease forwards;
+  animation-delay: 3s;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+@keyframes textFade {
+  to { opacity: 1; }
+}
+
 /* ================= BASE ================= */
 body {
   margin: 0;
@@ -44,6 +141,18 @@ body.night::before {
   max-width: 520px;
   padding: 40px 20px 80px;
 }
+  <div id="genshinScene">
+  <div class="sky"></div>
+
+  <div class="branch"></div>
+
+  <div class="bird">🐦</div>
+
+  <div class="genshin-text">
+    thank you for protecting us, pihu
+  </div>
+</div>
+
 
 /* ================= TITLE ================= */
 .glow {
@@ -332,8 +441,9 @@ function typeLine() {
 
 /* Optional second button */
 document.getElementById("next2Btn").addEventListener("click", () => {
-  alert("Next chapter coming soon ✨");
+  document.body.classList.add("genshin");
 });
+
 
 /* Music toggle */
 function toggleMusic() {
