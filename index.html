@@ -6,119 +6,20 @@
 <title>for you, princess pihu</title>
 
 <style>
-
-  /* ================= Genshin-like Scene ================= */
-
-#genshinScene {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    #a7c7ff,
-    #cfe6ff,
-    #f7fbff
-  );
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 2s ease;
-  z-index: 50;
-  overflow: hidden;
-}
-
-/* activate scene */
-body.genshin #genshinScene {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* soft sky motion */
-#genshinScene .sky {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6), transparent 40%),
-    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.5), transparent 45%);
-  animation: skyDrift 20s ease-in-out infinite;
-}
-
-@keyframes skyDrift {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(-20px); }
-  100% { transform: translateX(0); }
-}
-
-/* Tree branch */
-.branch {
-  position: absolute;
-  bottom: 40%;
-  left: -10%;
-  width: 140%;
-  height: 20px;
-  background: linear-gradient(to right, #5a3e2b, #7b5335);
-  border-radius: 20px;
-  transform: rotate(-2deg);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-
-/* Bird */
-.bird {
-  position: absolute;
-  font-size: 42px;
-  left: -60px;
-  top: 38%;
-  animation: birdFly 3s ease-out forwards;
-}
-
-/* Bird flying in */
-@keyframes birdFly {
-  0% {
-    transform: translateX(-200px) translateY(-40px) scale(0.8);
-    opacity: 0;
-  }
-  60% {
-    transform: translateX(50vw) translateY(-20px) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(60vw) translateY(0) scale(1);
-  }
-}
-
-/* Text */
-.genshin-text {
-  position: absolute;
-  bottom: 18%;
-  width: 100%;
-  text-align: center;
-  font-size: 26px;
-  font-family: "Georgia", serif;
-  color: #3b4c6b;
-  opacity: 0;
-  animation: textFade 2s ease forwards;
-  animation-delay: 3s;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-
-@keyframes textFade {
-  to { opacity: 1; }
-}
-
 /* ================= BASE ================= */
 body {
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
-  overflow-y: auto;
   font-family: "Georgia", serif;
   background: linear-gradient(to bottom, #2f3e46, #354f52, #52796f, #84a98c);
   display: flex;
   justify-content: center;
   text-align: center;
   color: #ecfdf3;
-  transition: background 3s ease;
 }
 
-/* Night overlay */
+/* night overlay */
 body::before {
   content: "";
   position: fixed;
@@ -129,30 +30,16 @@ body::before {
   transition: opacity 3s ease;
   z-index: 0;
 }
-
-body.night::before {
-  opacity: 1;
-}
+body.night::before { opacity: 1; }
 
 /* ================= CONTENT ================= */
 .content {
   position: relative;
-  z-index: 20;
+  z-index: 100;
   max-width: 520px;
   padding: 40px 20px 80px;
+  transition: opacity 1.2s ease;
 }
-  <div id="genshinScene">
-  <div class="sky"></div>
-
-  <div class="branch"></div>
-
-  <div class="bird">🐦</div>
-
-  <div class="genshin-text">
-    thank you for protecting us, pihu
-  </div>
-</div>
-
 
 /* ================= TITLE ================= */
 .glow {
@@ -208,23 +95,20 @@ button:hover {
   transform: translateY(-2px);
 }
 
-#nextBtn {
-  margin-bottom: 20px;
-}
+#nextBtn { margin-bottom: 20px; }
 
 #next2Btn {
   margin-top: 30px;
   opacity: 0;
-  pointer-events: none;
-  transition: all 0.6s ease;
+  pointer-events: auto;
+  transition: opacity 0.6s ease;
 }
 
 #next2Btn.show {
   opacity: 1;
-  pointer-events: auto;
 }
 
-/* ================= TEXT AREA ================= */
+/* ================= TEXT ================= */
 #thanksBox {
   margin-top: 30px;
   opacity: 0;
@@ -252,7 +136,7 @@ button:hover {
   background: rgba(200,255,255,0.35);
   top: -20px;
   animation: rainFall linear infinite;
-  z-index: 3;
+  z-index: 5;
 }
 
 @keyframes rainFall {
@@ -265,7 +149,7 @@ button:hover {
   font-size: 18px;
   opacity: 0.7;
   animation: petalFall linear infinite;
-  z-index: 3;
+  z-index: 5;
 }
 
 @keyframes petalFall {
@@ -286,14 +170,12 @@ button:hover {
     0 0 30px rgba(255,255,255,.4),
     0 0 80px rgba(200,220,255,.25);
   opacity: 0;
-  transition: opacity 3s ease;
   animation: moonPulse 6s ease-in-out infinite;
-  z-index: 2;
+  transition: opacity 3s ease;
+  z-index: 10;
 }
 
-body.night .moon {
-  opacity: 1;
-}
+body.night .moon { opacity: 1; }
 
 @keyframes moonPulse {
   0%,100% {
@@ -317,12 +199,10 @@ body.night .moon {
   border-radius: 50%;
   opacity: 0;
   animation: twinkle 3s infinite ease-in-out;
-  z-index: 1;
+  z-index: 2;
 }
 
-body.night .star {
-  opacity: 1;
-}
+body.night .star { opacity: 1; }
 
 @keyframes twinkle {
   0%,100% { opacity: 0.3; }
@@ -338,26 +218,106 @@ body.night .star {
   opacity: 0;
   transform: rotate(-45deg);
   animation: shoot 1.2s ease-out forwards;
-  z-index: 2;
+  z-index: 6;
 }
 
 @keyframes shoot {
+  0% { opacity: 1; transform: translate(0,0) rotate(-45deg); }
+  100% { opacity: 0; transform: translate(-300px,300px) rotate(-45deg); }
+}
+
+/* ================= GENSHIN SCENE ================= */
+#genshinScene {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #a7c7ff, #cfe6ff, #f7fbff);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+  z-index: 200;
+  overflow: hidden;
+}
+
+body.genshin #genshinScene {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* sky texture */
+#genshinScene .sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.5), transparent 45%);
+  animation: skyDrift 20s ease-in-out infinite;
+}
+
+@keyframes skyDrift {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+  100% { transform: translateX(0); }
+}
+
+/* branch */
+.branch {
+  position: absolute;
+  bottom: 40%;
+  left: -10%;
+  width: 140%;
+  height: 20px;
+  background: linear-gradient(to right, #5a3e2b, #7b5335);
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
+/* bird */
+.bird {
+  position: absolute;
+  font-size: 42px;
+  left: -60px;
+  top: 38%;
+  animation: birdFly 3s ease-out forwards;
+}
+
+@keyframes birdFly {
   0% {
+    transform: translateX(-200px) translateY(-40px) scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(50vw) translateY(-20px) scale(1);
     opacity: 1;
-    transform: translate(0, 0) rotate(-45deg);
   }
   100% {
-    opacity: 0;
-    transform: translate(-300px, 300px) rotate(-45deg);
+    transform: translateX(60vw) translateY(0) scale(1);
   }
 }
 
-/* ================= MUSIC BUTTON ================= */
+/* genshin text */
+.genshin-text {
+  position: absolute;
+  bottom: 18%;
+  width: 100%;
+  text-align: center;
+  font-size: 26px;
+  color: #3b4c6b;
+  opacity: 0;
+  animation: textFade 2s ease forwards;
+  animation-delay: 3s;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+@keyframes textFade {
+  to { opacity: 1; }
+}
+
+/* music */
 #musicBtn {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 30;
+  z-index: 300;
   padding: 12px 18px;
   border-radius: 999px;
   border: none;
@@ -386,6 +346,13 @@ body.night .star {
   </div>
 </div>
 
+<div id="genshinScene">
+  <div class="sky"></div>
+  <div class="branch"></div>
+  <div class="bird">🐦</div>
+  <div class="genshin-text">thank you for protecting us, pihu</div>
+</div>
+
 <audio id="bgm" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -393,6 +360,7 @@ body.night .star {
 <button id="musicBtn" onclick="toggleMusic()">▶ play music</button>
 
 <script>
+/* ---------- TEXT LOGIC ---------- */
 const textLines = [
   "Why I chose to continue loving you?",
   "",
@@ -439,13 +407,13 @@ function typeLine() {
   }
 }
 
-/* Optional second button */
+/* ---------- SECOND BUTTON ACTION ---------- */
 document.getElementById("next2Btn").addEventListener("click", () => {
   document.body.classList.add("genshin");
+  document.querySelector(".content").style.opacity = "0";
 });
 
-
-/* Music toggle */
+/* ---------- MUSIC ---------- */
 function toggleMusic() {
   const audio = document.getElementById("bgm");
   const btn = document.getElementById("musicBtn");
@@ -459,7 +427,7 @@ function toggleMusic() {
   }
 }
 
-/* Rain */
+/* ---------- RAIN ---------- */
 for (let i = 0; i < 70; i++) {
   const drop = document.createElement("div");
   drop.className = "rain";
@@ -468,19 +436,29 @@ for (let i = 0; i < 70; i++) {
   document.body.appendChild(drop);
 }
 
-/* Petals */
+/* ---------- PETALS ---------- */
 const petals = ["🌸", "🍃", "🌺"];
 for (let i = 0; i < 15; i++) {
-  const petal = document.createElement("div");
-  petal.className = "petal";
-  petal.textContent = petals[Math.floor(Math.random() * petals.length)];
-  petal.style.left = Math.random() * 100 + "vw";
-  petal.style.animationDuration = 8 + Math.random() * 10 + "s";
-  petal.style.fontSize = 16 + Math.random() * 14 + "px";
-  document.body.appendChild(petal);
+  const p = document.createElement("div");
+  p.className = "petal";
+  p.textContent = petals[Math.floor(Math.random() * petals.length)];
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDuration = 8 + Math.random() * 10 + "s";
+  p.style.fontSize = 16 + Math.random() * 14 + "px";
+  document.body.appendChild(p);
 }
 
-/* Shooting stars */
+/* ---------- STARS ---------- */
+for (let i = 0; i < 80; i++) {
+  const s = document.createElement("div");
+  s.className = "star";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+  s.style.animationDelay = Math.random() * 3 + "s";
+  document.body.appendChild(s);
+}
+
+/* ---------- SHOOTING STARS ---------- */
 function spawnShootingStar() {
   if (!document.body.classList.contains("night")) return;
 
