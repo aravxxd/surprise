@@ -6,6 +6,30 @@
   <title>for you, princess pihu</title>
 
   <style>
+    .glow {
+  color: #f5fff9;
+  text-shadow:
+    0 0 6px rgba(180, 255, 220, 0.6),
+    0 0 12px rgba(160, 230, 200, 0.4),
+    0 0 20px rgba(120, 200, 170, 0.25);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 6px rgba(180, 255, 220, 0.6),
+      0 0 12px rgba(160, 230, 200, 0.4),
+      0 0 20px rgba(120, 200, 170, 0.25);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(200, 255, 230, 0.8),
+      0 0 18px rgba(170, 240, 210, 0.6),
+      0 0 30px rgba(140, 220, 190, 0.4);
+  }
+}
+
     body {
       margin: 0;
       height: 100vh;
