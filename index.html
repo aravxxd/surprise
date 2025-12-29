@@ -75,6 +75,28 @@
         transform: translateY(110vh) rotate(360deg);
       }
     }
+    #nextBtn {
+  margin-top: 25px;
+  padding: 10px 22px;
+
+  font-size: 15px;
+  font-family: inherit;
+
+  background: transparent;
+  color: #2f4f4f;
+
+  border: 1px solid rgba(47, 79, 79, 0.4);
+  border-radius: 30px;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#nextBtn:hover {
+  background: rgba(47, 79, 79, 0.1);
+  transform: translateY(-2px);
+}
+
   </style>
 </head>
 
@@ -165,6 +187,15 @@ style="
 ">
   ♫ play music
 </button>
+  <script>
+document.getElementById("nextBtn").addEventListener("click", () => {
+  window.scrollTo({
+    top: window.innerHeight,
+    behavior: "smooth"
+  });
+});
+</script>
+
 
 </body>
 </html>
