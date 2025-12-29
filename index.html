@@ -9,13 +9,13 @@
     body {
       margin: 0;
       height: 100vh;
+      overflow: hidden;
       font-family: "Georgia", serif;
 
-      /* Nature themed background */
       background: linear-gradient(
         180deg,
-        #dff3ea 0%,
-        #f7fdfb 50%,
+        #e8f5f0 0%,
+        #f6fbf9 50%,
         #ffffff 100%
       );
 
@@ -30,23 +30,138 @@
       font-weight: 500;
       color: #2f4f4f;
       letter-spacing: 1px;
+      z-index: 5;
+      position: relative;
     }
 
     .subtitle {
       margin-top: 12px;
       font-size: 18px;
-      color: #5f7f73;
+      color: #6b8f86;
       font-style: italic;
+      z-index: 5;
+      position: relative;
+    }
+
+    /* 🌧 Soft rain */
+    .rain {
+      position: absolute;
+      width: 1.5px;
+      height: 18px;
+      background: rgba(120, 170, 160, 0.25);
+      top: -30px;
+      animation: rainFall linear infinite;
+    }
+
+    @keyframes rainFall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
+    /* 🍃 Floating leaves */
+    .leaf {
+      position: absolute;
+      font-size: 18px;
+      opacity: 0.5;
+      animation: leafFloat linear infinite;
+    }
+
+    @keyframes leafFloat {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+      }
     }
   </style>
 </head>
 
 <body>
+<audio id="bgm" preload="auto" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn">▶ play music</button>
+
+<style>
+#musicBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255,255,255,0.9);
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+</style>
+
+<script>
+const btn = document.getElementById("musicBtn");
+const audio = document.getElementById("bgm");
+
+btn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+    btn.textContent = "⏸ pause";
+  } else {
+    audio.pause();
+    btn.textContent = "▶ play music";
+  }
+});
+</script>
+
   <div>
     <h1>for you, queen</h1>
-    <div class="subtitle">
-      something gentle, just for you
-    </div>
+    <div class="subtitle">something gentle, just for you</div>
   </div>
+
+  <script>
+    // 🌧 Softer rain (fewer drops, slower)
+    for (let i = 0; i < 35; i++) {
+      const drop = document.createElement("div");
+      drop.className = "rain";
+      drop.style.left = Math.random() * 100 + "vw";
+      drop.style.animationDuration = 4 + Math.random() * 4 + "s";
+      drop.style.opacity = Math.random() * 0.4;
+      document.body.appendChild(drop);
+    }
+
+    // 🍃 Slower floating leaves
+    const leaves = ["🍃", "🍂"];
+
+    for (let i = 0; i < 10; i++) {
+      const leaf = document.createElement("div");
+      leaf.className = "leaf";
+      leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
+      leaf.style.left = Math.random() * 100 + "vw";
+      leaf.style.animationDuration = 10 + Math.random() * 10 + "s";
+      leaf.style.fontSize = 14 + Math.random() * 16 + "px";
+      document.body.appendChild(leaf);
+    }
+  </script>
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="document.getElementById('bgm').play()"
+style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(255,255,255,0.85);
+  font-size: 14px;
+  cursor: pointer;
+">
+  ♫ play music
+</button>
+
 </body>
 </html>
