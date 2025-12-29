@@ -43,6 +43,8 @@
         #020617
       );
     }
+    <div class="moon"></div>
+
 
     .content {
       position: relative;
@@ -140,6 +142,16 @@
       margin: 0 auto;
       white-space: pre-line;
     }
+    // ⭐ Create stars
+for (let i = 0; i < 80; i++) {
+  const star = document.createElement("div");
+  star.className = "star";
+  star.style.left = Math.random() * 100 + "vw";
+  star.style.top = Math.random() * 100 + "vh";
+  star.style.animationDelay = Math.random() * 3 + "s";
+  document.body.appendChild(star);
+}
+
 
     /* Rain */
     .rain {
@@ -208,6 +220,89 @@ body::before {
 body.night::before {
   opacity: 1;
 }
+/* 🌙 Moon with pulsing glow */
+.moon {
+  position: fixed;
+  top: 40px;
+  right: 60px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #e6e6e6 60%, #cfcfcf);
+  box-shadow:
+    0 0 30px rgba(255, 255, 255, 0.4),
+    0 0 80px rgba(200, 220, 255, 0.25);
+  opacity: 0;
+  animation: moonPulse 6s ease-in-out infinite;
+  transition: opacity 3s ease;
+  z-index: 2;
+}
+
+body.night .moon {
+  opacity: 1;
+}
+
+@keyframes moonPulse {
+  0% {
+    box-shadow:
+      0 0 30px rgba(255,255,255,0.4),
+      0 0 80px rgba(200,220,255,0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 45px rgba(255,255,255,0.7),
+      0 0 120px rgba(200,220,255,0.45);
+  }
+  100% {
+    box-shadow:
+      0 0 30px rgba(255,255,255,0.4),
+      0 0 80px rgba(200,220,255,0.25);
+  }
+}
+
+
+/* ⭐ Stars */
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+body.night .star {
+  opacity: 1;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+/* 🌠 Shooting stars */
+.shooting-star {
+  position: fixed;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, white, rgba(255,255,255,0));
+  opacity: 0;
+  transform: rotate(-45deg);
+  animation: shoot 1.2s ease-out forwards;
+  z-index: 2;
+}
+
+@keyframes shoot {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(-45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-300px, 300px) rotate(-45deg);
+  }
+}
+
 
   </style>
 </head>
@@ -308,6 +403,30 @@ body.night::before {
       petal.style.fontSize = 16 + Math.random() * 14 + "px";
       document.body.appendChild(petal);
     }
+    // 🌠 Shooting stars (random)
+function spawnShootingStar() {
+  if (!document.body.classList.contains("night")) return;
+
+  const star = document.createElement("div");
+  star.className = "shooting-star";
+
+  star.style.top = Math.random() * 40 + "vh";
+  star.style.left = 60 + Math.random() * 40 + "vw";
+
+  document.body.appendChild(star);
+
+  setTimeout(() => {
+    star.remove();
+  }, 1200);
+}
+
+// spawn shooting stars occasionally
+setInterval(() => {
+  if (Math.random() < 0.35) {
+    spawnShootingStar();
+  }
+}, 4000);
+
   </script>
 
 </body>
