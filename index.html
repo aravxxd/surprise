@@ -10,43 +10,45 @@
 body {
   margin: 0;
   min-height: 100vh;
-  overflow-x: hidden;
   font-family: "Georgia", serif;
   background: linear-gradient(to bottom, #2f3e46, #354f52, #52796f, #84a98c);
+  overflow-x: hidden;
+  color: #ecfdf3;
   display: flex;
   justify-content: center;
-  text-align: center;
-  color: #ecfdf3;
-  transition: background 3s ease;
 }
 
-/* Night overlay */
+/* NIGHT OVERLAY */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background: linear-gradient(to bottom, #0f172a, #111827, #020617);
   opacity: 0;
-  pointer-events: none;
   transition: opacity 3s ease;
+  pointer-events: none;
   z-index: 0;
 }
-body.night::before { opacity: 1; }
+body.night::before {
+  opacity: 1;
+}
 
-/* ================= CONTENT ================= */
+/* MAIN CONTENT */
 .content {
   position: relative;
   z-index: 20;
   max-width: 520px;
   padding: 40px 20px 80px;
+  text-align: center;
 }
 
-/* Title glow */
+/* TITLE */
 .glow {
+  font-size: 42px;
   color: #fff7e6;
   text-shadow:
     0 0 6px rgba(255,220,170,.6),
-    0 0 14px rgba(255,200,140,.45),
+    0 0 14px rgba(255,200,140,.4),
     0 0 24px rgba(255,180,120,.25);
   animation: flicker 3s infinite ease-in-out;
 }
@@ -56,10 +58,13 @@ body.night::before { opacity: 1; }
   50% { opacity: .85; }
 }
 
-h1 { font-size: 42px; margin-bottom: 10px; }
-.subtitle { opacity: .9; font-style: italic; }
+.subtitle {
+  font-style: italic;
+  opacity: .9;
+  margin-bottom: 25px;
+}
 
-/* Buttons */
+/* BUTTONS */
 button {
   padding: 10px 26px;
   border-radius: 30px;
@@ -69,12 +74,16 @@ button {
   cursor: pointer;
   transition: .3s;
 }
-button:hover { background: rgba(255,255,255,.15); }
+
+button:hover {
+  background: rgba(255,255,255,.15);
+  transform: translateY(-2px);
+}
 
 #next2Btn {
-  margin-top: 30px;
   opacity: 0;
   pointer-events: none;
+  margin-top: 30px;
   transition: .6s;
 }
 #next2Btn.show {
@@ -82,7 +91,7 @@ button:hover { background: rgba(255,255,255,.15); }
   pointer-events: auto;
 }
 
-/* Text typing */
+/* TEXT */
 #thanksBox {
   margin-top: 30px;
   opacity: 0;
@@ -94,26 +103,90 @@ button:hover { background: rgba(255,255,255,.15); }
   transform: translateY(0);
 }
 #typewriter {
+  white-space: pre-line;
   font-size: 18px;
   line-height: 1.9;
-  white-space: pre-line;
   font-style: italic;
 }
 
-/* ========== GENSHIN-STYLE SCENE ========== */
+/* ================= STARS ================= */
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle 3s infinite ease-in-out;
+  z-index: 2;
+}
+
+body.night .star { opacity: 1; }
+
+@keyframes twinkle {
+  0%,100% { opacity: .3; }
+  50% { opacity: 1; }
+}
+
+/* SHOOTING STARS */
+.shooting-star {
+  position: fixed;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, white, transparent);
+  opacity: 0;
+  transform: rotate(-45deg);
+  z-index: 3;
+  animation: shoot 1.2s ease-out forwards;
+}
+
+@keyframes shoot {
+  0% { opacity: 1; transform: translate(0,0) rotate(-45deg); }
+  100% { opacity: 0; transform: translate(-300px,300px) rotate(-45deg); }
+}
+
+/* MOON */
+.moon {
+  position: fixed;
+  top: 40px;
+  right: 60px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #e6e6e6 60%, #cfcfcf);
+  box-shadow:
+    0 0 30px rgba(255,255,255,.4),
+    0 0 80px rgba(200,220,255,.25);
+  opacity: 0;
+  animation: moonPulse 6s ease-in-out infinite;
+  transition: opacity 3s ease;
+  z-index: 2;
+}
+
+body.night .moon { opacity: 1; }
+
+@keyframes moonPulse {
+  0%,100% {
+    box-shadow:
+      0 0 30px rgba(255,255,255,.4),
+      0 0 80px rgba(200,220,255,.25);
+  }
+  50% {
+    box-shadow:
+      0 0 45px rgba(255,255,255,.7),
+      0 0 120px rgba(200,220,255,.45);
+  }
+}
+
+/* GENSHIN SCENE */
 #genshinScene {
   position: fixed;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    #a9c8ff,
-    #dbe9ff,
-    #f6fbff
-  );
+  background: linear-gradient(to bottom, #a7c7ff, #e6f1ff, #ffffff);
   opacity: 0;
   pointer-events: none;
   transition: opacity 2s ease;
-  z-index: 50;
+  z-index: 40;
   overflow: hidden;
 }
 
@@ -122,14 +195,14 @@ body.genshin #genshinScene {
   pointer-events: auto;
 }
 
-/* dreamy clouds */
+/* soft clouds */
 #genshinScene::before {
   content: "";
   position: absolute;
   inset: 0;
   background:
     radial-gradient(circle at 20% 20%, rgba(255,255,255,.6), transparent 40%),
-    radial-gradient(circle at 70% 25%, rgba(255,255,255,.5), transparent 45%);
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,.5), transparent 45%);
   animation: cloudMove 25s ease-in-out infinite;
 }
 
@@ -139,7 +212,7 @@ body.genshin #genshinScene {
   100% { transform: translateX(0); }
 }
 
-/* Tree branch */
+/* BRANCH */
 .branch {
   position: absolute;
   bottom: 40%;
@@ -152,41 +225,31 @@ body.genshin #genshinScene {
   transform: rotate(-2deg);
 }
 
-/* Bird */
+/* BIRD */
 .bird {
   position: absolute;
   font-size: 46px;
-  left: -100px;
+  left: -120px;
   top: 36%;
   animation: birdFly 3s ease-out forwards;
 }
 
-/* Flying animation */
 @keyframes birdFly {
-  0% {
-    transform: translate(-200px, -80px) scale(.8);
-    opacity: 0;
-  }
-  60% {
-    transform: translate(55vw, -20px) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(62vw, 0) scale(1);
-  }
+  0% { transform: translate(-200px,-80px) scale(.8); opacity: 0; }
+  60% { transform: translate(55vw,-20px) scale(1); opacity: 1; }
+  100% { transform: translate(62vw,0) scale(1); }
 }
 
-/* Blinking (eye illusion) */
+/* blink */
 .bird.blink {
-  animation: blink 4s infinite ease-in-out;
+  animation: blink 4s infinite;
 }
-
 @keyframes blink {
-  0%, 92%, 100% { filter: brightness(1); }
-  95% { filter: brightness(0.3); }
+  0%,92%,100% { filter: brightness(1); }
+  95% { filter: brightness(.3); }
 }
 
-/* Text */
+/* TEXT */
 .genshin-text {
   position: absolute;
   bottom: 18%;
@@ -197,7 +260,6 @@ body.genshin #genshinScene {
   opacity: 0;
   animation: fadeIn 2s ease forwards;
   animation-delay: 3s;
-  text-shadow: 0 2px 6px rgba(0,0,0,.15);
 }
 
 @keyframes fadeIn {
@@ -208,7 +270,6 @@ body.genshin #genshinScene {
 
 <body>
 
-<!-- MAIN CONTENT -->
 <div class="content">
   <h1 class="glow">for you, princess pihu</h1>
   <div class="subtitle">something gentle, just for you</div>
@@ -258,27 +319,51 @@ function typeLine() {
     document.getElementById("next2Btn").classList.add("show");
     return;
   }
+
+  const target = document.getElementById("typewriter");
   const line = textLines[lineIndex];
-  const out = document.getElementById("typewriter");
 
   if (charIndex < line.length) {
-    out.textContent += line.charAt(charIndex++);
+    target.textContent += line.charAt(charIndex++);
     setTimeout(typeLine, 45);
   } else {
-    out.textContent += "\n";
+    target.textContent += "\n";
     charIndex = 0;
     lineIndex++;
     setTimeout(typeLine, 500);
   }
 }
 
-/* Final transition */
+/* FINAL TRANSITION */
 document.getElementById("next2Btn").onclick = () => {
   document.body.classList.add("genshin");
-
-  const bird = document.querySelector(".bird");
-  setTimeout(() => bird.classList.add("blink"), 3000);
+  setTimeout(() => {
+    document.querySelector(".bird").classList.add("blink");
+  }, 2500);
 };
+
+/* STARS */
+for (let i = 0; i < 80; i++) {
+  const s = document.createElement("div");
+  s.className = "star";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+  s.style.animationDelay = Math.random() * 3 + "s";
+  document.body.appendChild(s);
+}
+
+/* SHOOTING STARS */
+setInterval(() => {
+  if (!document.body.classList.contains("night")) return;
+  if (Math.random() < 0.35) {
+    const s = document.createElement("div");
+    s.className = "shooting-star";
+    s.style.top = Math.random() * 40 + "vh";
+    s.style.left = 60 + Math.random() * 40 + "vw";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 1200);
+  }
+}, 4000);
 </script>
 
 </body>
