@@ -11,7 +11,6 @@
       height: 100vh;
       overflow: hidden;
       font-family: "Georgia", serif;
-
       background: linear-gradient(
         to bottom,
         #2f3e46,
@@ -19,18 +18,28 @@
         #52796f,
         #84a98c
       );
-
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: #ecfdf3;
+      transition: background 3s ease;
+    }
+
+    /* Night mode */
+    body.night {
+      background: linear-gradient(
+        to bottom,
+        #0f172a,
+        #111827,
+        #020617
+      );
     }
 
     .content {
       position: relative;
       z-index: 10;
-      max-width: 500px;
+      max-width: 520px;
       padding: 20px;
     }
 
@@ -42,6 +51,13 @@
         0 0 10px rgba(255, 200, 140, 0.4),
         0 0 18px rgba(255, 180, 120, 0.25);
       animation: candleFlicker 2.8s infinite ease-in-out;
+    }
+
+    body.night .glow {
+      text-shadow:
+        0 0 6px rgba(255, 210, 160, 0.7),
+        0 0 14px rgba(255, 180, 120, 0.5),
+        0 0 28px rgba(255, 150, 100, 0.35);
     }
 
     @keyframes candleFlicker {
@@ -78,7 +94,6 @@
       margin-bottom: 25px;
     }
 
-    /* NEXT BUTTON */
     #nextBtn {
       padding: 10px 26px;
       border-radius: 30px;
@@ -95,7 +110,6 @@
       transform: translateY(-2px);
     }
 
-    /* THANK YOU MESSAGE */
     #thanksBox {
       margin-top: 40px;
       opacity: 0;
@@ -109,11 +123,14 @@
       transform: translateY(0);
     }
 
-    .thanks-text {
+    #typewriter {
       font-size: 18px;
-      line-height: 1.8;
+      line-height: 1.9;
       color: #f7f3e8;
       font-style: italic;
+      max-width: 520px;
+      margin: 0 auto;
+      white-space: pre-line;
     }
 
     /* Rain */
@@ -126,10 +143,12 @@
       animation: rainFall linear infinite;
     }
 
+    body.night .rain {
+      background: rgba(180, 200, 255, 0.25);
+    }
+
     @keyframes rainFall {
-      to {
-        transform: translateY(110vh);
-      }
+      to { transform: translateY(110vh); }
     }
 
     /* Petals */
@@ -141,15 +160,11 @@
     }
 
     @keyframes petalFall {
-      0% {
-        transform: translateY(-10vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-      }
+      0% { transform: translateY(-10vh) rotate(0deg); }
+      100% { transform: translateY(110vh) rotate(360deg); }
     }
 
-    /* Music button */
+    /* Music */
     #musicBtn {
       position: fixed;
       bottom: 20px;
@@ -176,15 +191,10 @@
     <button id="nextBtn">next →</button>
 
     <div id="thanksBox">
-      <p class="thanks-text">
-        thank you for being exactly who you are.<br>
-        for the softness, the warmth,<br>
-        and the quiet magic you carry.
-      </p>
+      <p id="typewriter"></p>
     </div>
   </div>
 
-  <!-- MUSIC -->
   <audio id="bgm" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
@@ -192,12 +202,49 @@
   <button id="musicBtn" onclick="toggleMusic()">▶ play music</button>
 
   <script>
-    // NEXT button reveal
+    const textLines = [
+      "Why I chose to continue loving you?",
+      "",
+      "Because you are not replaceable, princess.",
+      "Not because you try to be perfect —",
+      "but because of who you are.",
+      "",
+      "You’re adorable in the way you feel things deeply,",
+      "and strong in the way you keep going anyway.",
+      "",
+      "That’s why I chose to love you —",
+      "for your softness,",
+      "and for your strength."
+    ];
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
     document.getElementById("nextBtn").addEventListener("click", () => {
+      document.body.classList.add("night");
       document.getElementById("thanksBox").classList.add("show");
+      document.getElementById("nextBtn").disabled = true;
+      typeLine();
     });
 
-    // Music toggle
+    function typeLine() {
+      if (lineIndex >= textLines.length) return;
+
+      const currentLine = textLines[lineIndex];
+      const target = document.getElementById("typewriter");
+
+      if (charIndex < currentLine.length) {
+        target.textContent += currentLine.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeLine, 45);
+      } else {
+        target.textContent += "\n";
+        charIndex = 0;
+        lineIndex++;
+        setTimeout(typeLine, 500);
+      }
+    }
+
     function toggleMusic() {
       const audio = document.getElementById("bgm");
       const btn = document.getElementById("musicBtn");
