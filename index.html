@@ -20,7 +20,7 @@ body {
 .scene {
   position: absolute;
   inset: 0;
-  display: none; /* Hidden by default */
+  display: none;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -91,7 +91,7 @@ body {
 /* Specific Visibility Fix for Scene 4 Button */
 #btn-scene4 {
   font-weight: bold;
-  background: rgba(0, 0, 0, 0.6); /* Darker background for visibility */
+  background: rgba(0, 0, 0, 0.6);
   border: 2px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
   letter-spacing: 1px;
@@ -100,7 +100,6 @@ body {
   background: rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
 }
-
 
 /* ================= SCENE 1 SPECIFIC ================= */
 #scene1 { background: linear-gradient(to bottom, #2f3e46, #52796f); }
@@ -115,7 +114,6 @@ body {
   color: #ffd700;
   text-shadow: 0 0 12px rgba(255,215,0,.9), 0 0 24px rgba(255,215,0,.6);
 }
-/* Falling Petals Animation */
 .petal {
   position: absolute;
   top: -10vh;
@@ -144,7 +142,6 @@ body {
   margin-bottom: 25px;
   z-index: 2;
 }
-/* REALISTIC CSS STARS (No Emojis) */
 .star-real {
   position: absolute;
   background: white;
@@ -171,7 +168,6 @@ body {
   94% { transform: scaleY(0.1); }
 }
 .final-text { font-size: 24px; color: #eafff2; }
-/* Rain Animation */
 .rain {
   position: absolute;
   top: -20px; width: 2px; height: 18px;
@@ -181,7 +177,7 @@ body {
 }
 @keyframes rainFall { to { transform: translateY(120vh); } }
 
-/* ================= SCENE 4 SPECIFIC (Scrolling Text) ================= */
+/* ================= SCENE 4 SPECIFIC ================= */
 #scene4 { background-image: url("ambient.jpg"); }
 #scene4-container {
   max-width: 800px;
@@ -206,24 +202,24 @@ body {
 #scene4-container::-webkit-scrollbar { width: 8px; }
 #scene4-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.5); border-radius: 4px; }
 
-/* ================= SCENE 5 SPECIFIC (Hug - Softened) ================= */
+/* ================= SCENE 5 SPECIFIC ================= */
 #scene5 { background-image: url("hug.jpg"); }
 .hug-title {
-  font-size: 20px; /* Smaller */
+  font-size: 20px;
   color: #ffd700;
   text-shadow: 0 0 8px rgba(0,0,0,0.8);
   margin-bottom: 15px;
   animation: fadeInUp 1s ease forwards;
 }
 .hug-text {
-  font-size: 28px; /* Much smaller/Ambient */
-  font-weight: normal; /* Not bold */
+  font-size: 28px;
+  font-weight: normal;
   font-family: 'Palatino Linotype', serif;
   color: #fff;
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
   letter-spacing: 3px;
-  animation: hugPulseSoft 4s ease-in-out infinite; /* Slower pulse */
-  background: rgba(0,0,0,0.4); /* Slight background readability */
+  animation: hugPulseSoft 4s ease-in-out infinite;
+  background: rgba(0,0,0,0.4);
   padding: 15px 30px;
   border-radius: 50px;
   backdrop-filter: blur(4px);
@@ -234,11 +230,11 @@ body {
   50% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 25px rgba(255,255,255,0.7); } 
 }
 
-/* ================= SCENE 6 SPECIFIC (Book) ================= */
+/* ================= SCENE 6 SPECIFIC ================= */
 #scene6 {
   background-image: url("bookpage.jpg");
   background-blend-mode: multiply;
-  background-color: #ddd; 
+  background-color: #ddd;
 }
 .book-text {
   max-width: 700px;
@@ -253,7 +249,7 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* ================= SCENE 7 SPECIFIC (Intentions) ================= */
+/* ================= SCENE 7 SPECIFIC ================= */
 #scene7 {
   background: linear-gradient(to bottom, #020024, #090979, #00d4ff00);
   background-color: #050510;
@@ -286,6 +282,43 @@ body {
 }
 #scene7-container::-webkit-scrollbar { width: 8px; }
 #scene7-container::-webkit-scrollbar-thumb { background: rgba(165, 180, 252, 0.5); border-radius: 4px; }
+
+/* ================= SCENE 8 SPECIFIC (Parrot - NEW) ================= */
+#scene8 { background-image: url("parrot.jpg"); }
+.parrot-content {
+  max-width: 750px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 50px;
+  border-radius: 25px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.parrot-text {
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  font-size: 20px;
+  line-height: 1.8;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+.parrot-text-main {
+  margin-bottom: 20px;
+}
+.parrot-text-love {
+  margin-bottom: 20px;
+}
+.parrot-text-signature {
+  margin-top: 20px;
+  font-style: italic;
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+.dummy-glow {
+  color: #ffd700;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+  font-weight: bold;
+}
 
 </style>
 </head>
@@ -373,7 +406,27 @@ body {
 
 • I want to be your safe space but i promise to not overshare or bring up anything that will potentially discomfort you unless its really urgent or i feel you should really know.
 
-• I might be not the person you want ik and dont worry about it, i would be the same till end as its not tough i still find happiness even in tears loving you from my heart      
+• I might be not the person you want ik and dont worry about it, i would be the same till end as i still find happiness even in tears loving you from bottom of my heart. 
+    </div>
+  </div>
+  <button class="bottom-btn" onclick="goToScene8()">next →</button>
+</div>
+
+<!-- SCENE 8: Parrot (NEW) -->
+<div id="scene8" class="scene">
+  <button class="top-back" onclick="backToScene7()">&larr; back</button>
+  <div class="parrot-content">
+    <div class="parrot-text parrot-text-main">
+      Thankyou so much for reading till here, i hope you liked it, this is the first time i ever coded in my life but i really enjoyed and didnt mind the errors that came in everytime ( i totally didnt commit 67 changes ) loll but apologies for any errors i made,
+    </div>
+    
+    <div class="parrot-text parrot-text-love">
+      to the end i wanna tell i love you so much, please stay safe and take care of yourself dear pihu
+    </div>
+    
+    <div class="parrot-text parrot-text-signature">
+      yours <span class="dummy-glow">dummy</span> (i really love my nickname hehe it makes me feel you are calling)<br>
+      ~ara
     </div>
   </div>
   <button class="bottom-btn" onclick="goToScene1()">go to beginning ↺</button>
@@ -432,44 +485,48 @@ function switchScene(hideIds, showId) {
 /* Specific Scene Functions */
 function goToScene1() {
   stopScroll();
-  // Reset typewriter
   document.getElementById("typewriter").textContent = "";
   lineIndex = 0; charIndex = 0; typingStarted = false;
   document.getElementById("nextAfterText").classList.add("hidden");
   
-  switchScene(["scene2","scene3","scene4","scene5","scene6","scene7"], "scene1");
+  switchScene(["scene2","scene3","scene4","scene5","scene6","scene7","scene8"], "scene1");
 }
 
 function goToScene2() {
   stopScroll();
-  switchScene(["scene1","scene3","scene4","scene5","scene6","scene7"], "scene2");
+  switchScene(["scene1","scene3","scene4","scene5","scene6","scene7","scene8"], "scene2");
   if(!typingStarted) { typingStarted = true; typeLine(); }
 }
 
 function goToScene3() {
   stopScroll();
-  switchScene(["scene1","scene2","scene4","scene5","scene6","scene7"], "scene3");
+  switchScene(["scene1","scene2","scene4","scene5","scene6","scene7","scene8"], "scene3");
 }
 
 function goToScene4() {
   stopScroll();
-  switchScene(["scene1","scene2","scene3","scene5","scene6","scene7"], "scene4");
+  switchScene(["scene1","scene2","scene3","scene5","scene6","scene7","scene8"], "scene4");
   startScroll();
 }
 
 function goToScene5() {
   stopScroll();
-  switchScene(["scene1","scene2","scene3","scene4","scene6","scene7"], "scene5");
+  switchScene(["scene1","scene2","scene3","scene4","scene6","scene7","scene8"], "scene5");
 }
 
 function goToScene6() {
   stopScroll();
-  switchScene(["scene1","scene2","scene3","scene4","scene5","scene7"], "scene6");
+  switchScene(["scene1","scene2","scene3","scene4","scene5","scene7","scene8"], "scene6");
 }
 
 function goToScene7() {
   stopScroll();
-  switchScene(["scene1","scene2","scene3","scene4","scene5","scene6"], "scene7");
+  switchScene(["scene1","scene2","scene3","scene4","scene5","scene6","scene8"], "scene7");
+}
+
+function goToScene8() {
+  stopScroll();
+  switchScene(["scene1","scene2","scene3","scene4","scene5","scene6","scene7"], "scene8");
 }
 
 /* Back Button Helpers */
@@ -479,10 +536,11 @@ function backToScene3() { goToScene3(); }
 function backToScene4() { goToScene4(); }
 function backToScene5() { goToScene5(); }
 function backToScene6() { goToScene6(); }
+function backToScene7() { goToScene7(); }
 
 /* Typewriter Logic (Scene 2) */
 const lines = [
-  "Why I chose to continue loving you?", "",
+ "Why I chose to continue loving you?", "",
   "Because you are not replaceable, princess.",
   "Not just because you are so pretty —",
   "but because of who you are.", "",
@@ -522,19 +580,16 @@ for(let i=0; i<25; i++){
   s1.appendChild(d);
 }
 
-// CGI Stars (Real Style - Scene 2 & 7)
+// CGI Stars (Scene 2 & 7)
 [document.getElementById("scene2"), document.getElementById("scene7")].forEach(container => {
-    for(let i=0; i<80; i++){ /* increased count slightly */
+    for(let i=0; i<80; i++){
       let d = document.createElement("div");
       d.className="star-real";
-      // Random position
       d.style.left = Math.random() * 100 + "vw";
       d.style.top = Math.random() * 100 + "vh";
-      // Random size
-      let size = Math.random() * 3 + 1; /* 1px to 4px */
+      let size = Math.random() * 3 + 1;
       d.style.width = size + "px";
       d.style.height = size + "px";
-      // Random delay
       d.style.animationDelay = Math.random() * 4 + "s";
       d.style.animationDuration = (2 + Math.random() * 3) + "s";
       container.appendChild(d);
