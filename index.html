@@ -33,26 +33,36 @@ body {
   display: flex;
 }
 
-/* ================= MUSIC BUTTON - BOTTOM RIGHT ================= */
+/* ================= MUSIC BUTTON - BOTTOM RIGHT (SMALL & AESTHETIC) ================= */
 .music-toggle {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  padding: 15px 20px;
-  border-radius: 50px;
-  border: 2px solid rgba(255,255,255,.6);
-  background: rgba(0,0,0,0.7);
-  color: white;
+  bottom: 25px;
+  right: 25px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.6);
+  color: #fff;
   cursor: pointer;
-  font-size: 18px;
-  backdrop-filter: blur(10px);
-  transition: all .3s ease;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
 }
 
 .music-toggle:hover {
-  background: rgba(255,255,255,.15);
-  transform: scale(1.05);
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.music-toggle:active {
+  transform: scale(0.95);
 }
 
 /* ================= TOP BACK BUTTON ================= */
@@ -230,8 +240,8 @@ button:hover {
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- SINGLE PLAY/PAUSE BUTTON - BOTTOM RIGHT -->
-<button id="musicToggle" class="music-toggle" onclick="toggleMusic()">▶️ Play Music</button>
+<!-- SINGLE PLAY/PAUSE BUTTON - BOTTOM RIGHT (SMALL CIRCLE) -->
+<button id="musicToggle" class="music-toggle" onclick="toggleMusic()">▶️</button>
 
 <!-- SCENE 1 -->
 <div id="scene1" class="scene active">
@@ -279,7 +289,7 @@ button:hover {
 </div>
 
 <script>
-/* MUSIC TOGGLE - SINGLE BUTTON */
+/* MUSIC TOGGLE - SINGLE SMALL BUTTON */
 const bgMusic = document.getElementById("bgMusic");
 const musicToggle = document.getElementById("musicToggle");
 let musicPlaying = false;
@@ -288,12 +298,12 @@ function toggleMusic() {
   if (musicPlaying) {
     // PAUSE
     bgMusic.pause();
-    musicToggle.innerHTML = "▶️ Play Music";
+    musicToggle.textContent = "▶️";
     musicPlaying = false;
   } else {
     // PLAY
     bgMusic.play().catch(e => console.log("Play failed:", e));
-    musicToggle.innerHTML = "⏸️ Pause Music";
+    musicToggle.textContent = "⏸️";
     musicPlaying = true;
   }
 }
@@ -338,13 +348,13 @@ const lines = [
   "Why I chose to continue loving you?",
   "",
   "Because you are not replaceable, princess.",
-  "Not because you try to be perfect —",
+  "Not only because you are looking pretty —",
   "but because of who you are.",
   "",
-  "You're adorable in the way you feel things deeply,",
-  "and strong in the way you keep going anyway.",
+  "You're adorable in the way you work things,",
+  "and strong in the way you keep going no matter what stops you.",
   "",
-  "That's why I chose to love you —",
+  "That's why I chose to want you —",
   "for your softness,",
   "and for your strength."
 ];
