@@ -33,6 +33,13 @@ body {
   display: flex;
 }
 
+/* ================= TOP BACK BUTTON ================= */
+.top-back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
 /* ================= SCENE 1 ================= */
 #scene1 {
   background: linear-gradient(to bottom, #2f3e46, #52796f);
@@ -96,7 +103,6 @@ body {
   background-repeat: no-repeat;
 }
 
-
 /* Bird */
 .bird {
   font-size: 56px;
@@ -132,13 +138,13 @@ body {
 
 /* ================= BUTTONS ================= */
 button {
-  padding: 12px 30px;
+  padding: 10px 24px;
   border-radius: 30px;
   border: 1px solid rgba(255,255,255,.4);
   background: transparent;
   color: white;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   transition: .3s;
 }
 
@@ -160,6 +166,9 @@ button:hover {
 
 <!-- SCENE 1 -->
 <div id="scene1" class="scene active">
+  <!-- back button (optional: can hide on first scene) -->
+  <button class="top-back hidden" onclick="goToScene1()">&larr; back</button>
+
   <h1 class="glow">for you, princess pihu</h1>
   <div class="subtitle">something gentle, just for you</div>
   <button onclick="goToScene2()">next →</button>
@@ -167,6 +176,8 @@ button:hover {
 
 <!-- SCENE 2 -->
 <div id="scene2" class="scene">
+  <button class="top-back" onclick="backToScene1()">&larr; back</button>
+
   <div class="moon"></div>
 
   <p id="typewriter"></p>
@@ -176,6 +187,8 @@ button:hover {
 
 <!-- SCENE 3 -->
 <div id="scene3" class="scene">
+  <button class="top-back" onclick="backToScene2()">&larr; back</button>
+
   <div class="bird">🐦</div>
 
   <div class="final-text">
@@ -228,11 +241,42 @@ const lines = [
 
 let lineIndex = 0;
 let charIndex = 0;
+let typingStarted = false;
+
+function goToScene1() {
+  document.getElementById("scene2").classList.remove("active");
+  document.getElementById("scene3").classList.remove("active");
+  document.getElementById("scene1").classList.add("active");
+}
 
 function goToScene2() {
   document.getElementById("scene1").classList.remove("active");
+  document.getElementById("scene3").classList.remove("active");
   document.getElementById("scene2").classList.add("active");
-  typeLine();
+
+  if (!typingStarted) {
+    typingStarted = true;
+    typeLine();
+  }
+}
+
+function goToScene3() {
+  document.getElementById("scene2").classList.remove("active");
+  document.getElementById("scene1").classList.remove("active");
+  document.getElementById("scene3").classList.add("active");
+}
+
+/* back buttons */
+function backToScene1() {
+  document.getElementById("scene2").classList.remove("active");
+  document.getElementById("scene3").classList.remove("active");
+  document.getElementById("scene1").classList.add("active");
+}
+
+function backToScene2() {
+  document.getElementById("scene3").classList.remove("active");
+  document.getElementById("scene1").classList.remove("active");
+  document.getElementById("scene2").classList.add("active");
 }
 
 function typeLine() {
@@ -252,11 +296,6 @@ function typeLine() {
     lineIndex++;
     setTimeout(typeLine, 400);
   }
-}
-
-function goToScene3() {
-  document.getElementById("scene2").classList.remove("active");
-  document.getElementById("scene3").classList.add("active");
 }
 </script>
 
