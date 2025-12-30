@@ -38,22 +38,6 @@ body {
   background: linear-gradient(to bottom, #2f3e46, #52796f);
 }
 
-/* Falling flowers */
-.petal {
-  position: absolute;
-  top: -10vh;
-  font-size: 18px;
-  opacity: 0.8;
-  animation: petalFall linear infinite;
-  pointer-events: none;
-}
-
-@keyframes petalFall {
-  to {
-    transform: translateY(120vh) rotate(360deg);
-  }
-}
-
 .glow {
   font-size: 42px;
   text-shadow: 0 0 18px rgba(255,220,150,.8);
@@ -64,12 +48,26 @@ body {
   margin-bottom: 30px;
 }
 
+/* Flowers */
+.petal {
+  position: absolute;
+  top: -10vh;
+  font-size: 18px;
+  opacity: 0.8;
+  animation: petalFall linear infinite;
+  pointer-events: none;
+}
+
+@keyframes petalFall {
+  to { transform: translateY(120vh) rotate(360deg); }
+}
+
 /* ================= SCENE 2 ================= */
 #scene2 {
   background: linear-gradient(to bottom, #0b132b, #1c2541);
 }
 
-/* moon */
+/* Moon */
 .moon {
   position: absolute;
   top: 40px;
@@ -81,13 +79,13 @@ body {
   box-shadow: 0 0 40px rgba(255,255,255,.6);
 }
 
-/* typing text */
+/* Text */
 #typewriter {
   max-width: 600px;
   font-size: 18px;
   line-height: 1.8;
   white-space: pre-line;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 /* ================= SCENE 3 ================= */
@@ -111,8 +109,8 @@ body {
 
 .final-text {
   font-size: 24px;
-  color: #eafff2;
   margin-top: 20px;
+  color: #eafff2;
 }
 
 /* ================= RAIN ================= */
@@ -121,16 +119,9 @@ body {
   top: -20px;
   width: 2px;
   height: 18px;
-  background: rgba(200,255,230,.45);
+  background: rgba(200,255,230,0.45);
   animation: rain 2s linear infinite;
-  opacity: 0;
   pointer-events: none;
-}
-
-/* show rain only in scene 2 & 3 */
-#scene2.active .rain,
-#scene3.active .rain {
-  opacity: 1;
 }
 
 @keyframes rain {
@@ -139,7 +130,7 @@ body {
 
 /* ================= BUTTONS ================= */
 button {
-  padding: 12px 28px;
+  padding: 12px 30px;
   border-radius: 30px;
   border: 1px solid rgba(255,255,255,.4);
   background: transparent;
@@ -151,6 +142,10 @@ button {
 
 button:hover {
   background: rgba(255,255,255,.15);
+}
+
+.hidden {
+  display: none;
 }
 
 .bottom-btn {
@@ -171,8 +166,10 @@ button:hover {
 <!-- SCENE 2 -->
 <div id="scene2" class="scene">
   <div class="moon"></div>
+
   <p id="typewriter"></p>
-  <button onclick="goToScene3()">next →</button>
+
+  <button id="nextAfterText" class="hidden" onclick="goToScene3()">next →</button>
 </div>
 
 <!-- SCENE 3 -->
@@ -188,7 +185,7 @@ button:hover {
 </div>
 
 <script>
-/* FLOWER GENERATION */
+/* FLOWERS */
 const flowers = ["🌸","🌺","🍃"];
 for (let i = 0; i < 25; i++) {
   const petal = document.createElement("div");
@@ -200,14 +197,16 @@ for (let i = 0; i < 25; i++) {
   document.getElementById("scene1").appendChild(petal);
 }
 
-/* RAIN CREATION (shared) */
-for (let i = 0; i < 90; i++) {
-  const drop = document.createElement("div");
-  drop.className = "rain";
-  drop.style.left = Math.random() * 100 + "vw";
-  drop.style.animationDuration = 1.5 + Math.random() * 2 + "s";
-  document.body.appendChild(drop);
-}
+/* RAIN (exists in both scene 2 & 3) */
+document.querySelectorAll("#scene2, #scene3").forEach(scene => {
+  for (let i = 0; i < 80; i++) {
+    const drop = document.createElement("div");
+    drop.className = "rain";
+    drop.style.left = Math.random() * 100 + "vw";
+    drop.style.animationDuration = 1.5 + Math.random() * 2 + "s";
+    scene.appendChild(drop);
+  }
+});
 
 /* TEXT */
 const lines = [
@@ -225,7 +224,8 @@ const lines = [
   "and for your strength."
 ];
 
-let i = 0, j = 0;
+let lineIndex = 0;
+let charIndex = 0;
 
 function goToScene2() {
   document.getElementById("scene1").classList.remove("active");
@@ -234,16 +234,20 @@ function goToScene2() {
 }
 
 function typeLine() {
-  if (i >= lines.length) return;
+  if (lineIndex >= lines.length) {
+    document.getElementById("nextAfterText").classList.remove("hidden");
+    return;
+  }
 
   const el = document.getElementById("typewriter");
-  if (j < lines[i].length) {
-    el.textContent += lines[i][j++];
+
+  if (charIndex < lines[lineIndex].length) {
+    el.textContent += lines[lineIndex][charIndex++];
     setTimeout(typeLine, 40);
   } else {
     el.textContent += "\n";
-    j = 0;
-    i++;
+    charIndex = 0;
+    lineIndex++;
     setTimeout(typeLine, 400);
   }
 }
