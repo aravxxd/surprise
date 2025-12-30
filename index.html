@@ -85,6 +85,13 @@ body {
 .subtitle {
   opacity: 0.85;
   margin-bottom: 30px;
+  font-size: 20px;
+}
+
+.ara-glow {
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 12px rgba(255,215,0,.9), 0 0 24px rgba(255,215,0,.6);
 }
 
 /* Flowers */
@@ -248,7 +255,9 @@ button:hover {
   <button class="top-back hidden" onclick="goToScene1()">&larr; back</button>
 
   <h1 class="glow">for you, princess pihu</h1>
-  <div class="subtitle">something gentle, just for you</div>
+  <div class="subtitle">
+    made for you <span class="ara-glow">by ara</span>
+  </div>
   <button onclick="goToScene2()">next →</button>
 </div>
 
@@ -296,12 +305,10 @@ let musicPlaying = false;
 
 function toggleMusic() {
   if (musicPlaying) {
-    // PAUSE
     bgMusic.pause();
     musicToggle.textContent = "▶️";
     musicPlaying = false;
   } else {
-    // PLAY
     bgMusic.play().catch(e => console.log("Play failed:", e));
     musicToggle.textContent = "⏸️";
     musicPlaying = true;
@@ -348,13 +355,13 @@ const lines = [
   "Why I chose to continue loving you?",
   "",
   "Because you are not replaceable, princess.",
-  "Not only because you are looking pretty —",
+  "Not because you try to be perfect —",
   "but because of who you are.",
   "",
-  "You're adorable in the way you work things,",
-  "and strong in the way you keep going no matter what stops you.",
+  "You're adorable in the way you feel things deeply,",
+  "and strong in the way you keep going anyway.",
   "",
-  "That's why I chose to want you —",
+  "That's why I chose to love you —",
   "for your softness,",
   "and for your strength."
 ];
