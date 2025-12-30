@@ -167,8 +167,8 @@ body {
 /* ================= SCENE 4 SPECIFIC (Scrolling Text) ================= */
 #scene4 { background-image: url("ambient.jpg"); }
 #scene4-container {
-  max-width: 800px; /* Bigger width */
-  max-height: 75vh; /* Bigger height */
+  max-width: 800px;
+  max-height: 75vh;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(255,255,255,0.4) transparent;
@@ -176,7 +176,7 @@ body {
 }
 #scene4-text {
   font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-  font-size: 19px; /* Slightly larger text */
+  font-size: 19px;
   line-height: 1.8;
   background: rgba(0,0,0,0.85);
   padding: 40px;
@@ -186,7 +186,6 @@ body {
   backdrop-filter: blur(10px);
   white-space: pre-line;
 }
-/* Custom Scrollbar */
 #scene4-container::-webkit-scrollbar { width: 8px; }
 #scene4-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.5); border-radius: 4px; }
 
@@ -200,7 +199,7 @@ body {
   animation: fadeInUp 1s ease forwards;
 }
 .hug-text {
-  font-size: 60px; /* Big text */
+  font-size: 60px;
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 20px rgba(255,255,255,0.6);
@@ -214,7 +213,7 @@ body {
 #scene6 {
   background-image: url("bookpage.jpg");
   background-blend-mode: multiply;
-  background-color: #ddd; /* Fallback */
+  background-color: #ddd; 
 }
 .book-text {
   max-width: 700px;
@@ -228,6 +227,40 @@ body {
   color: #2c1810;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
+
+/* ================= SCENE 7 SPECIFIC (Intentions) ================= */
+#scene7 {
+  background: linear-gradient(to bottom, #020024, #090979, #00d4ff00); /* Dark midnight blue gradient base */
+  background-color: #050510;
+}
+.intentions-title {
+  font-size: 28px;
+  color: #a5b4fc;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px rgba(165, 180, 252, 0.5);
+}
+#scene7-container {
+  max-width: 750px;
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(165, 180, 252, 0.4) transparent;
+  z-index: 5;
+}
+#scene7-text {
+  font-family: 'Georgia', serif;
+  font-size: 18px;
+  line-height: 1.8;
+  background: rgba(20, 20, 40, 0.85);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: left;
+  color: #e0e7ff;
+  border: 1px solid rgba(165, 180, 252, 0.2);
+  white-space: pre-line;
+}
+#scene7-container::-webkit-scrollbar { width: 8px; }
+#scene7-container::-webkit-scrollbar-thumb { background: rgba(165, 180, 252, 0.5); border-radius: 4px; }
 
 </style>
 </head>
@@ -294,9 +327,29 @@ body {
 <div id="scene6" class="scene">
   <button class="top-back" onclick="backToScene5()">&larr; back</button>
   <div class="book-text">
-    Thankyou for spawning this year and making my year filled with good memories, all moments with you are memorable for me and cherish them every single day just hoping and wanting to be next to you so i can spend more time, i wanna continue loving you in year 2026 as well for you, ofc no force for you, be yourself, you matter, you are the boss queen
+    Thankyou for spawning this year and making my year filled with good memories, all moments with you are memorable for me and i will cherish them every single day just hoping and wanting to be next to you so i can spend more time and make more memories
   </div>
-  <button class="bottom-btn" onclick="goToScene1()">next →</button>
+  <button class="bottom-btn" onclick="goToScene7()">next →</button>
+</div>
+
+<!-- SCENE 7: Intentions (New) -->
+<div id="scene7" class="scene">
+  <button class="top-back" onclick="backToScene6()">&larr; back</button>
+  <h2 class="intentions-title">what my intentions are?</h2>
+  <div id="scene7-container">
+    <div id="scene7-text">
+• I wanna continue loving you in 2026 as well till my death
+
+• I am never gonna force you ever to treat me particularly or do anything, its truly upto you please be yourself to me.
+
+• Just know you matter the most to me so whenever a good happens you will be the first one to know, thats when im gonna text you.
+
+• If you trust me enough and if you are comfortable, i want to spend time with you on days you are not feeling good or you feel odd.
+
+• I want to be your safe space but i promise to not overshare or bring up anything that will potentially discomfort you unless its really urgent or i feel you should really know.
+    </div>
+  </div>
+  <button class="bottom-btn" onclick="goToScene1()">go to beginning ↺</button>
 </div>
 
 <script>
@@ -319,7 +372,7 @@ function toggleMusic() {
   }
 }
 
-/* Scene 4 Auto-Scroll */
+/* Scene 4 Auto-Scroll Logic */
 let scrollInterval;
 function startScroll() {
   const c = document.getElementById("scene4-container");
@@ -357,34 +410,40 @@ function goToScene1() {
   lineIndex = 0; charIndex = 0; typingStarted = false;
   document.getElementById("nextAfterText").classList.add("hidden");
   
-  switchScene(["scene2","scene3","scene4","scene5","scene6"], "scene1");
+  switchScene(["scene2","scene3","scene4","scene5","scene6","scene7"], "scene1");
 }
 
 function goToScene2() {
   stopScroll();
-  switchScene(["scene1","scene3","scene4","scene5","scene6"], "scene2");
+  switchScene(["scene1","scene3","scene4","scene5","scene6","scene7"], "scene2");
   if(!typingStarted) { typingStarted = true; typeLine(); }
 }
 
 function goToScene3() {
   stopScroll();
-  switchScene(["scene1","scene2","scene4","scene5","scene6"], "scene3");
+  switchScene(["scene1","scene2","scene4","scene5","scene6","scene7"], "scene3");
 }
 
 function goToScene4() {
   stopScroll();
-  switchScene(["scene1","scene2","scene3","scene5","scene6"], "scene4");
+  switchScene(["scene1","scene2","scene3","scene5","scene6","scene7"], "scene4");
   startScroll();
 }
 
 function goToScene5() {
   stopScroll();
-  switchScene(["scene1","scene2","scene3","scene4","scene6"], "scene5");
+  switchScene(["scene1","scene2","scene3","scene4","scene6","scene7"], "scene5");
 }
 
 function goToScene6() {
   stopScroll();
-  switchScene(["scene1","scene2","scene3","scene4","scene5"], "scene6");
+  switchScene(["scene1","scene2","scene3","scene4","scene5","scene7"], "scene6");
+}
+
+function goToScene7() {
+  stopScroll();
+  // No auto scroll needed for scene 7 as requested, just manual
+  switchScene(["scene1","scene2","scene3","scene4","scene5","scene6"], "scene7");
 }
 
 /* Back Button Helpers */
@@ -393,6 +452,7 @@ function backToScene2() { goToScene2(); }
 function backToScene3() { goToScene3(); }
 function backToScene4() { goToScene4(); }
 function backToScene5() { goToScene5(); }
+function backToScene6() { goToScene6(); }
 
 /* Typewriter Logic (Scene 2) */
 const lines = [
@@ -436,17 +496,18 @@ for(let i=0; i<25; i++){
   s1.appendChild(d);
 }
 
-// Stars (Scene 2)
-const s2 = document.getElementById("scene2");
-for(let i=0; i<60; i++){
-  let d = document.createElement("div");
-  d.className="star"; d.textContent="✨";
-  d.style.left=Math.random()*100+"vw";
-  d.style.top=Math.random()*40+"vh";
-  d.style.animationDelay=Math.random()*3+"s";
-  d.style.animationDuration=(2+Math.random()*3)+"s";
-  s2.appendChild(d);
-}
+// Stars (Scene 2 & 7 - added to scene 7 as well for ambience)
+[document.getElementById("scene2"), document.getElementById("scene7")].forEach(container => {
+    for(let i=0; i<60; i++){
+      let d = document.createElement("div");
+      d.className="star"; d.textContent="✨";
+      d.style.left=Math.random()*100+"vw";
+      d.style.top=Math.random()*100+"vh"; // full screen stars for scene 7
+      d.style.animationDelay=Math.random()*3+"s";
+      d.style.animationDuration=(2+Math.random()*3)+"s";
+      container.appendChild(d);
+    }
+});
 
 // Rain (Scene 2 & 3)
 [document.getElementById("scene2"), document.getElementById("scene3")].forEach(s => {
@@ -462,4 +523,3 @@ for(let i=0; i<60; i++){
 </script>
 </body>
 </html>
-
