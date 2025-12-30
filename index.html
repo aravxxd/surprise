@@ -33,7 +33,7 @@ body {
   display: flex;
 }
 
-/* ================= MUSIC BUTTON - BOTTOM RIGHT ================= */
+/* ================= MUSIC BUTTON ================= */
 .music-toggle {
   position: fixed;
   bottom: 25px;
@@ -154,7 +154,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* ================= SCENE 4 ================= */
+/* ================= SCENE 4 - AUTO-SCROLL + MANUAL SCROLL ================= */
 #scene4 {
   background-image: url("ambient.jpg");
   background-size: cover;
@@ -162,18 +162,39 @@ body {
   background-repeat: no-repeat;
 }
 
-.ambient-text {
-  max-width: 700px;
+#scene4-container {
+  max-width: 650px;
+  max-height: 65vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+#scene4-text {
   font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.8;
-  background: rgba(0,0,0,0.7);
-  padding: 40px;
-  border-radius: 20px;
+  background: rgba(0,0,0,0.8);
+  padding: 35px;
+  border-radius: 25px;
   text-align: left;
-  color: #f0f8ff;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  color: #f8f8ff;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+  white-space: pre-line;
+}
+
+#scene4-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+#scene4-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#scene4-container::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4);
+  border-radius: 4px;
 }
 
 /* ================= SCENE 5 ================= */
@@ -205,21 +226,12 @@ body {
 }
 
 @keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes hugPulse {
-  0%, 100% { 
-    opacity: 0.9; 
-    transform: scale(1); 
-  }
-  50% { 
-    opacity: 1; 
-    transform: scale(1.05); 
-  }
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
 
 /* ================= SCENE 6 ================= */
@@ -338,21 +350,23 @@ button:hover {
   <button class="bottom-btn" onclick="goToScene4()">next →</button>
 </div>
 
-<!-- SCENE 4 - NEW AMBIENT -->
+<!-- SCENE 4 - AUTO-SCROLL + MANUAL SCROLL -->
 <div id="scene4" class="scene">
   <button class="top-back" onclick="backToScene3()">&larr; back</button>
-  <div class="ambient-text">
-    Wish i could watch your favourite movies everyday with you because those time i get to spend with you are so much precious and priceless, i still remember that movie where the girl who came to live with grandparents ran away and the grandfather came looking for her all the way, i forgot the name but that was one of the movies or series that i watched with you in beginning and i still cry at night sometimes when i remember those lovely moment<br><br>
-    
-    Wish i could visit your library at home and spend a month or a year if it takes and read every single book you have read...<br><br>
-    
-    wish i could sip the black coffee you make with the special aroma that feels like smell of soil after rain<br><br>
-    
-    wish we could play minecraft together and build homes and explore the world together<br><br>
-    
-    wish i could travel to new york (your fav place if i recall right) with you and explore<br><br>
-    
-    wish i could have your fav sabji bindi cooked by you in your hand along with you
+  <div id="scene4-container">
+    <div id="scene4-text">
+Wish i could watch your favourite movies everyday with you because those time i get to spend with you are so much precious and priceless, i still remember that movie where the girl who came to live with grandparents ran away and the grandfather came looking for her all the way, i forgot the name but that was one of the movies or series that i watched with you in beginning and i still cry at night sometimes when i remember those lovely moment
+
+Wish i could visit your library at home and spend a month or a year if it takes and read every single book you have read...
+
+wish i could sip the black coffee you make with the special aroma that feels like smell of soil after rain
+
+wish we could play minecraft together and build homes and explore the world together
+
+wish i could travel to new york (your fav place if i recall right) with you and explore
+
+wish i could have your fav sabji bindi cooked by you in your hand along with you
+    </div>
   </div>
   <button class="bottom-btn" onclick="goToScene5()">next →</button>
 </div>
@@ -365,7 +379,7 @@ button:hover {
   <button class="bottom-btn" onclick="goToScene6()">next →</button>
 </div>
 
-<!-- SCENE 6 - BOOK (old scene 4) -->
+<!-- SCENE 6 - BOOK -->
 <div id="scene6" class="scene">
   <button class="top-back" onclick="backToScene5()">&larr; back</button>
   <div class="book-text">
@@ -390,6 +404,28 @@ function toggleMusic() {
     musicToggle.textContent = "⏸️";
     musicPlaying = true;
   }
+}
+
+/* SCENE 4 AUTO-SCROLL */
+let scene4ScrollInterval;
+function startScene4AutoScroll() {
+  const container = document.getElementById("scene4-container");
+  const scrollHeight = container.scrollHeight - container.clientHeight;
+  let startTime = Date.now();
+  
+  scene4ScrollInterval = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const progress = Math.min(elapsed / 12000, 1); // 12 seconds total
+    container.scrollTop = scrollHeight * progress;
+    
+    if (progress >= 1) {
+      clearInterval(scene4ScrollInterval);
+    }
+  }, 50);
+}
+
+function stopScene4AutoScroll() {
+  clearInterval(scene4ScrollInterval);
 }
 
 /* ANIMATIONS */
@@ -467,41 +503,49 @@ function goToScene1() {
   document.getElementById("typewriter").textContent = "";
   lineIndex = 0; charIndex = 0; typingStarted = false;
   document.getElementById("nextAfterText").classList.add("hidden");
+  stopScene4AutoScroll();
   document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
   document.getElementById("scene1").classList.add("active");
 }
 
 function goToScene2() {
+  stopScene4AutoScroll();
   document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
   document.getElementById("scene2").classList.add("active");
   if (!typingStarted) { typingStarted = true; typeLine(); }
 }
 
 function goToScene3() {
+  stopScene4AutoScroll();
   document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
   document.getElementById("scene3").classList.add("active");
 }
 
 function goToScene4() {
+  stopScene4AutoScroll();
   document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
   document.getElementById("scene4").classList.add("active");
+  startScene4AutoScroll(); // Start auto-scroll
 }
 
 function goToScene5() {
+  stopScene4AutoScroll();
   document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
   document.getElementById("scene5").classList.add("active");
 }
 
 function goToScene6() {
+  stopScene4AutoScroll();
   document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
   document.getElementById("scene6").classList.add("active");
 }
 
 function backToScene1() { goToScene1(); }
-function backToScene2() { document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene2").classList.add("active"); }
-function backToScene3() { document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene3").classList.add("active"); }
-function backToScene4() { document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene4").classList.add("active"); }
-function backToScene5() { document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene5").classList.add("active"); }
+function backToScene2() { stopScene4AutoScroll(); document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene2").classList.add("active"); }
+function backToScene3() { stopScene4AutoScroll(); document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene3").classList.add("active"); }
+function backToScene4() { stopScene4AutoScroll(); document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene4").classList.add("active"); startScene4AutoScroll(); }
+function backToScene5() { stopScene4AutoScroll(); document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene5").classList.add("active"); }
 </script>
+
 </body>
 </html>
