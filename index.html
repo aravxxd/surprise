@@ -88,6 +88,20 @@ body {
 .bottom-btn:hover, .top-back:hover { background: rgba(255,255,255,.2); }
 .hidden { display: none; }
 
+/* Specific Visibility Fix for Scene 4 Button */
+#btn-scene4 {
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.6); /* Darker background for visibility */
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  letter-spacing: 1px;
+}
+#btn-scene4:hover {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+}
+
+
 /* ================= SCENE 1 SPECIFIC ================= */
 #scene1 { background: linear-gradient(to bottom, #2f3e46, #52796f); }
 .glow {
@@ -130,16 +144,19 @@ body {
   margin-bottom: 25px;
   z-index: 2;
 }
-/* Stars */
-.star {
+/* REALISTIC CSS STARS (No Emojis) */
+.star-real {
   position: absolute;
-  font-size: 12px; color: #fff;
-  animation: twinkle 3s ease-in-out infinite;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  animation: twinkleReal 4s ease-in-out infinite;
   pointer-events: none;
 }
-@keyframes twinkle {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
+@keyframes twinkleReal {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 /* ================= SCENE 3 SPECIFIC ================= */
@@ -189,25 +206,33 @@ body {
 #scene4-container::-webkit-scrollbar { width: 8px; }
 #scene4-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.5); border-radius: 4px; }
 
-/* ================= SCENE 5 SPECIFIC (Hug) ================= */
+/* ================= SCENE 5 SPECIFIC (Hug - Softened) ================= */
 #scene5 { background-image: url("hug.jpg"); }
 .hug-title {
-  font-size: 24px;
+  font-size: 20px; /* Smaller */
   color: #ffd700;
-  text-shadow: 0 0 10px rgba(0,0,0,0.8);
-  margin-bottom: 20px;
+  text-shadow: 0 0 8px rgba(0,0,0,0.8);
+  margin-bottom: 15px;
   animation: fadeInUp 1s ease forwards;
 }
 .hug-text {
-  font-size: 60px;
-  font-weight: bold;
+  font-size: 28px; /* Much smaller/Ambient */
+  font-weight: normal; /* Not bold */
+  font-family: 'Palatino Linotype', serif;
   color: #fff;
-  text-shadow: 0 0 20px rgba(255,255,255,0.6);
-  letter-spacing: 2px;
-  animation: hugPulse 2s ease infinite;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+  letter-spacing: 3px;
+  animation: hugPulseSoft 4s ease-in-out infinite; /* Slower pulse */
+  background: rgba(0,0,0,0.4); /* Slight background readability */
+  padding: 15px 30px;
+  border-radius: 50px;
+  backdrop-filter: blur(4px);
 }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes hugPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes hugPulseSoft { 
+  0%, 100% { opacity: 0.7; transform: scale(1); } 
+  50% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 25px rgba(255,255,255,0.7); } 
+}
 
 /* ================= SCENE 6 SPECIFIC (Book) ================= */
 #scene6 {
@@ -230,7 +255,7 @@ body {
 
 /* ================= SCENE 7 SPECIFIC (Intentions) ================= */
 #scene7 {
-  background: linear-gradient(to bottom, #020024, #090979, #00d4ff00); /* Dark midnight blue gradient base */
+  background: linear-gradient(to bottom, #020024, #090979, #00d4ff00);
   background-color: #050510;
 }
 .intentions-title {
@@ -312,14 +337,14 @@ body {
 • Wish i could have your fav sabji bindi cooked by you in your hand along with you
     </div>
   </div>
-  <button class="bottom-btn" onclick="goToScene5()">next →</button>
+  <button id="btn-scene4" class="bottom-btn" onclick="goToScene5()">next →</button>
 </div>
 
-<!-- SCENE 5: Hug -->
+<!-- SCENE 5: Hug (Soft Ambient) -->
 <div id="scene5" class="scene">
   <button class="top-back" onclick="backToScene4()">&larr; back</button>
   <div class="hug-title">and most importantly</div>
-  <div class="hug-text">I WANNA TIGHTLY HUG YOU</div>
+  <div class="hug-text">I wanna tightly hug you</div>
   <button class="bottom-btn" onclick="goToScene6()">next →</button>
 </div>
 
@@ -332,21 +357,23 @@ body {
   <button class="bottom-btn" onclick="goToScene7()">next →</button>
 </div>
 
-<!-- SCENE 7: Intentions (New) -->
+<!-- SCENE 7: Intentions -->
 <div id="scene7" class="scene">
   <button class="top-back" onclick="backToScene6()">&larr; back</button>
   <h2 class="intentions-title">what my intentions are?</h2>
   <div id="scene7-container">
     <div id="scene7-text">
-• I wanna continue loving you in 2026 as well till my death
+• I wanna continue loving and caring for you in 2026 as well until my death
 
-• I am never gonna force you ever to treat me particularly or do anything, its truly upto you please be yourself to me.
+• I am never gonna force you ever to treat me particularly or do anything, its truly upto you to treat me the way you want, please be yourself to me.
 
-• Just know you matter the most to me so whenever a good happens you will be the first one to know, thats when im gonna text you.
+• Just know you matter the most to me so whenever a good happens you will be the first one to know.
 
-• If you trust me enough and if you are comfortable, i want to spend time with you on days you are not feeling good or you feel odd.
+• If you trust me enough and if you are comfortable, i want to spend time with you on days you are not feeling well or you feel odd or even if its a absolute boring day and you want to timepass.
 
 • I want to be your safe space but i promise to not overshare or bring up anything that will potentially discomfort you unless its really urgent or i feel you should really know.
+
+• I might be not the person you want ik and dont worry about it, i would be the same till end as its not tough i still find happiness even in tears loving you from my heart      
     </div>
   </div>
   <button class="bottom-btn" onclick="goToScene1()">go to beginning ↺</button>
@@ -379,11 +406,11 @@ function startScroll() {
   let start = Date.now();
   let totalScroll = c.scrollHeight - c.clientHeight;
   clearInterval(scrollInterval);
-  c.scrollTop = 0; // Reset to top
+  c.scrollTop = 0; 
   
   scrollInterval = setInterval(() => {
     let elapsed = Date.now() - start;
-    let progress = elapsed / 12000; // 12 seconds to scroll
+    let progress = elapsed / 12000; 
     if(progress >= 1) {
       clearInterval(scrollInterval);
       c.scrollTop = totalScroll;
@@ -442,7 +469,6 @@ function goToScene6() {
 
 function goToScene7() {
   stopScroll();
-  // No auto scroll needed for scene 7 as requested, just manual
   switchScene(["scene1","scene2","scene3","scene4","scene5","scene6"], "scene7");
 }
 
@@ -458,12 +484,12 @@ function backToScene6() { goToScene6(); }
 const lines = [
   "Why I chose to continue loving you?", "",
   "Because you are not replaceable, princess.",
-  "Not because you try to be perfect —",
+  "Not just because you are so pretty —",
   "but because of who you are.", "",
-  "You're adorable in the way you feel things deeply,",
-  "and strong in the way you keep going anyway.", "",
+  "You're adorable in the way you feel things deeply and care for people,",
+  "and strong in the way you keep going anyway no matter what happens.", "",
   "That's why I chose to love you —",
-  "for your softness,", "and for your strength."
+  "for you,", "and for your strength."
 ];
 let lineIndex = 0, charIndex = 0, typingStarted = false;
 
@@ -496,15 +522,21 @@ for(let i=0; i<25; i++){
   s1.appendChild(d);
 }
 
-// Stars (Scene 2 & 7 - added to scene 7 as well for ambience)
+// CGI Stars (Real Style - Scene 2 & 7)
 [document.getElementById("scene2"), document.getElementById("scene7")].forEach(container => {
-    for(let i=0; i<60; i++){
+    for(let i=0; i<80; i++){ /* increased count slightly */
       let d = document.createElement("div");
-      d.className="star"; d.textContent="✨";
-      d.style.left=Math.random()*100+"vw";
-      d.style.top=Math.random()*100+"vh"; // full screen stars for scene 7
-      d.style.animationDelay=Math.random()*3+"s";
-      d.style.animationDuration=(2+Math.random()*3)+"s";
+      d.className="star-real";
+      // Random position
+      d.style.left = Math.random() * 100 + "vw";
+      d.style.top = Math.random() * 100 + "vh";
+      // Random size
+      let size = Math.random() * 3 + 1; /* 1px to 4px */
+      d.style.width = size + "px";
+      d.style.height = size + "px";
+      // Random delay
+      d.style.animationDelay = Math.random() * 4 + "s";
+      d.style.animationDuration = (2 + Math.random() * 3) + "s";
       container.appendChild(d);
     }
 });
