@@ -33,19 +33,33 @@ body {
   display: flex;
 }
 
+/* ================= MUSIC BUTTON - BOTTOM RIGHT ================= */
+.music-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 15px 20px;
+  border-radius: 50px;
+  border: 2px solid rgba(255,255,255,.6);
+  background: rgba(0,0,0,0.7);
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  backdrop-filter: blur(10px);
+  transition: all .3s ease;
+  z-index: 1000;
+}
+
+.music-toggle:hover {
+  background: rgba(255,255,255,.15);
+  transform: scale(1.05);
+}
+
 /* ================= TOP BACK BUTTON ================= */
 .top-back {
   position: absolute;
   top: 20px;
   left: 20px;
-}
-
-/* Music control */
-.music-control {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 20px;
 }
 
 /* ================= SCENE 1 ================= */
@@ -211,13 +225,13 @@ button:hover {
 </head>
 
 <body>
-<!-- BACKGROUND MUSIC - PLAYS THROUGHOUT -->
+<!-- BACKGROUND MUSIC - STARTS SILENT -->
 <audio id="bgMusic" loop preload="auto">
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- MUSIC CONTROL BUTTON -->
-<button id="musicToggle" class="music-control" onclick="toggleMusic()" title="Toggle music">🎵</button>
+<!-- SINGLE PLAY/PAUSE BUTTON - BOTTOM RIGHT -->
+<button id="musicToggle" class="music-toggle" onclick="toggleMusic()">▶️ Play Music</button>
 
 <!-- SCENE 1 -->
 <div id="scene1" class="scene active">
@@ -265,32 +279,24 @@ button:hover {
 </div>
 
 <script>
-/* MUSIC CONTROL */
+/* MUSIC TOGGLE - SINGLE BUTTON */
 const bgMusic = document.getElementById("bgMusic");
 const musicToggle = document.getElementById("musicToggle");
 let musicPlaying = false;
 
 function toggleMusic() {
   if (musicPlaying) {
+    // PAUSE
     bgMusic.pause();
-    musicToggle.textContent = "🔇";
+    musicToggle.innerHTML = "▶️ Play Music";
     musicPlaying = false;
   } else {
-    bgMusic.play().catch(e => console.log("Autoplay blocked:", e));
-    musicToggle.textContent = "🎵";
+    // PLAY
+    bgMusic.play().catch(e => console.log("Play failed:", e));
+    musicToggle.innerHTML = "⏸️ Pause Music";
     musicPlaying = true;
   }
 }
-
-// Start music when user first interacts (fixes autoplay policy)
-document.addEventListener('click', function startMusicOnInteract() {
-  if (!musicPlaying) {
-    bgMusic.play().catch(e => console.log("Autoplay blocked:", e));
-    musicToggle.textContent = "🎵";
-    musicPlaying = true;
-  }
-  document.removeEventListener('click', startMusicOnInteract);
-}, { once: true });
 
 /* FLOWERS */
 const flowers = ["🌸","🌺","🍃"];
@@ -304,7 +310,7 @@ for (let i = 0; i < 25; i++) {
   document.getElementById("scene1").appendChild(petal);
 }
 
-/* RAIN (exists in both scene 2 & 3) */
+/* RAIN */
 document.querySelectorAll("#scene2, #scene3").forEach(scene => {
   for (let i = 0; i < 80; i++) {
     const drop = document.createElement("div");
@@ -315,7 +321,7 @@ document.querySelectorAll("#scene2, #scene3").forEach(scene => {
   }
 });
 
-/* STARS - ONLY FOR SCENE 2 */
+/* STARS - SCENE 2 */
 for (let i = 0; i < 60; i++) {
   const star = document.createElement("div");
   star.className = "star";
@@ -327,7 +333,7 @@ for (let i = 0; i < 60; i++) {
   document.getElementById("scene2").appendChild(star);
 }
 
-/* TEXT */
+/* SCENE NAVIGATION */
 const lines = [
   "Why I chose to continue loving you?",
   "",
@@ -361,7 +367,6 @@ function goToScene1() {
 function goToScene2() {
   document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
   document.getElementById("scene2").classList.add("active");
-
   if (!typingStarted) {
     typingStarted = true;
     typeLine();
@@ -378,15 +383,11 @@ function goToScene4() {
   document.getElementById("scene4").classList.add("active");
 }
 
-function backToScene1() {
-  goToScene1();
-}
-
+function backToScene1() { goToScene1(); }
 function backToScene2() {
   document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
   document.getElementById("scene2").classList.add("active");
 }
-
 function backToScene3() {
   document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
   document.getElementById("scene3").classList.add("active");
@@ -397,9 +398,7 @@ function typeLine() {
     document.getElementById("nextAfterText").classList.remove("hidden");
     return;
   }
-
   const el = document.getElementById("typewriter");
-
   if (charIndex < lines[lineIndex].length) {
     el.textContent += lines[lineIndex][charIndex++];
     setTimeout(typeLine, 40);
