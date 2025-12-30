@@ -1,67 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>for you, princess pihu</title>
 
 <style>
-/* ================= BASE ================= */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  min-height: 100vh;
   font-family: Georgia, serif;
-  text-align: center;
-  overflow-x: hidden;
+  overflow: hidden;
   color: #ecfdf3;
-  background: linear-gradient(to bottom, #2f3e46, #52796f, #84a98c);
-  transition: background 2s ease;
 }
 
-/* NIGHT */
-body.night {
-  background: linear-gradient(to bottom, #0b132b, #1c2541, #3a506b);
+/* ---------- SCENES ---------- */
+.scene {
+  position: absolute;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
 }
 
-/* RAINFOREST (dark, deep green) */
-body.rainforest {
-  background:
-    radial-gradient(circle at top, rgba(60,120,90,0.5), transparent 60%),
-    linear-gradient(to bottom, #0b2e1a, #123d2a, #1e5631, #0b2e1a);
+.scene.active {
+  display: flex;
 }
 
-/* CONTENT */
-.content {
-  position: relative;
-  z-index: 5;
-  padding: 60px 20px;
+/* ---------- SCENE 1 (FLOWERS) ---------- */
+#scene1 {
+  background: linear-gradient(to bottom, #2f3e46, #52796f);
+  overflow: hidden;
 }
 
-/* TITLE */
 .glow {
   font-size: 42px;
-  color: #fff6dc;
-  text-shadow: 0 0 15px rgba(255,210,150,.7);
-  animation: glowPulse 3s infinite;
-}
-
-@keyframes glowPulse {
-  50% { text-shadow: 0 0 30px rgba(255,200,140,.9); }
+  text-shadow: 0 0 18px rgba(255,220,150,.8);
 }
 
 .subtitle {
-  opacity: .9;
+  opacity: 0.85;
   margin-bottom: 30px;
 }
 
-/* BUTTONS */
 button {
-  padding: 12px 28px;
+  padding: 12px 30px;
   border-radius: 30px;
   border: 1px solid rgba(255,255,255,.4);
   background: transparent;
   color: white;
   cursor: pointer;
+  font-size: 16px;
   transition: .3s;
 }
 
@@ -69,135 +64,140 @@ button:hover {
   background: rgba(255,255,255,.15);
 }
 
-#next2Btn {
-  opacity: 0;
+/* Flower petals */
+.petal {
+  position: absolute;
+  top: -10vh;
+  font-size: 18px;
+  opacity: 0.8;
+  animation: petalFall linear infinite;
   pointer-events: none;
-  margin-top: 30px;
 }
 
-#next2Btn.show {
-  opacity: 1;
-  pointer-events: auto;
+@keyframes petalFall {
+  from { transform: translateY(-10vh) rotate(0deg); }
+  to   { transform: translateY(120vh) rotate(360deg); }
 }
 
-/* TEXT */
-#thanksBox {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: 1s;
-}
-
-#thanksBox.show {
-  opacity: 1;
-  transform: translateY(0);
+/* ---------- SCENE 2 (NIGHT) ---------- */
+#scene2 {
+  background: linear-gradient(to bottom, #0b132b, #1c2541);
 }
 
 #typewriter {
+  max-width: 600px;
   font-size: 18px;
   line-height: 1.8;
   white-space: pre-line;
+  margin-bottom: 25px;
 }
 
-/* RAIN */
-.rain {
-  position: fixed;
-  top: -20px;
-  width: 2px;
-  height: 18px;
-  background: rgba(200,255,230,.35);
-  animation: rainFall linear infinite;
-  opacity: 0;
-  z-index: 2;
-}
-
-body.rainforest .rain {
-  opacity: 1;
-}
-
-@keyframes rainFall {
-  to { transform: translateY(120vh); }
-}
-
-/* MOON */
+/* Moon */
 .moon {
-  position: fixed;
+  position: absolute;
   top: 40px;
   right: 50px;
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #ddd 60%);
+  background: radial-gradient(circle at 30% 30%, #fff, #ddd);
   box-shadow: 0 0 40px rgba(255,255,255,.6);
-  opacity: 0;
-  transition: 2s;
 }
 
-body.night .moon {
-  opacity: 1;
+/* ---------- SCENE 3 (RAINFOREST) ---------- */
+#scene3 {
+  background:
+    radial-gradient(circle at top, rgba(90,160,120,.35), transparent 60%),
+    linear-gradient(to bottom, #0b2e1a, #134e2a, #1f6f43);
 }
 
-/* BIRD */
+/* Rain */
+.rain {
+  position: absolute;
+  top: -20px;
+  width: 2px;
+  height: 18px;
+  background: rgba(200,255,230,.4);
+  animation: rain 2s linear infinite;
+}
+
+@keyframes rain {
+  to { transform: translateY(120vh); }
+}
+
+/* Bird */
 .bird {
-  position: fixed;
-  top: 42%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 52px;
-  opacity: 0;
+  font-size: 56px;
   animation: blink 4s infinite;
-  z-index: 5;
+  margin-bottom: 20px;
 }
 
-body.rainforest .bird {
-  opacity: 1;
-}
-
-/* blinking */
 @keyframes blink {
-  0%, 92%, 100% { transform: translateX(-50%) scaleY(1); }
-  94% { transform: translateX(-50%) scaleY(0.1); }
+  0%, 92%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.1); }
 }
 
-/* FINAL TEXT */
 .final-text {
-  opacity: 0;
-  margin-top: 220px;
-  font-size: 26px;
+  font-size: 24px;
   color: #eafff2;
-  transition: 1.5s;
+  margin-top: 20px;
 }
 
-body.rainforest .final-text {
-  opacity: 1;
+.bottom-btn {
+  margin-top: 35px;
+}
+
+/* Moon glow animation */
+@keyframes glow {
+  0%,100% { box-shadow: 0 0 25px rgba(255,255,255,.4); }
+  50% { box-shadow: 0 0 50px rgba(255,255,255,.7); }
 }
 </style>
 </head>
 
 <body>
 
-<div class="moon"></div>
-
-<div class="content">
+<!-- SCENE 1 -->
+<div id="scene1" class="scene active">
   <h1 class="glow">for you, princess pihu</h1>
   <div class="subtitle">something gentle, just for you</div>
+  <button onclick="goToScene2()">next →</button>
+</div>
 
-  <button id="nextBtn">next →</button>
+<!-- SCENE 2 -->
+<div id="scene2" class="scene">
+  <div class="moon"></div>
+  <p id="typewriter"></p>
+  <button onclick="goToScene3()">next →</button>
+</div>
 
-  <div id="thanksBox">
-    <p id="typewriter"></p>
-    <button id="next2Btn">next →</button>
-  </div>
+<!-- SCENE 3 -->
+<div id="scene3" class="scene">
+  <div class="bird">🐦</div>
 
   <div class="final-text">
     Thank you for protecting and loving us everyday  
     <br>~ birbs
   </div>
+
+  <button class="bottom-btn">coming soon</button>
 </div>
 
-<div class="bird">🐦</div>
-
 <script>
-const textLines = [
+/* Flower rain on scene 1 */
+const flowers = ["🌸","🌺","🍃"];
+for (let i = 0; i < 25; i++) {
+  const petal = document.createElement("div");
+  petal.className = "petal";
+  petal.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.animationDuration = 8 + Math.random() * 10 + "s";
+  petal.style.fontSize = 16 + Math.random() * 14 + "px";
+  document.getElementById("scene1").appendChild(petal);
+}
+
+/* Typing text */
+const lines = [
   "Why I chose to continue loving you?",
   "",
   "Because you are not replaceable, princess.",
@@ -212,49 +212,42 @@ const textLines = [
   "and for your strength."
 ];
 
-let lineIndex = 0;
-let charIndex = 0;
+let i = 0, j = 0;
 
-document.getElementById("nextBtn").onclick = () => {
-  document.body.classList.add("night");
-  document.getElementById("thanksBox").classList.add("show");
-  document.getElementById("nextBtn").disabled = true;
+function goToScene2() {
+  document.getElementById("scene1").classList.remove("active");
+  document.getElementById("scene2").classList.add("active");
   typeLine();
-};
+}
 
 function typeLine() {
-  if (lineIndex >= textLines.length) {
-    document.getElementById("next2Btn").classList.add("show");
-    return;
-  }
+  if (i >= lines.length) return;
 
-  const target = document.getElementById("typewriter");
-  const line = textLines[lineIndex];
-
-  if (charIndex < line.length) {
-    target.textContent += line[charIndex++];
+  const el = document.getElementById("typewriter");
+  if (j < lines[i].length) {
+    el.textContent += lines[i][j++];
     setTimeout(typeLine, 40);
   } else {
-    target.textContent += "\n";
-    charIndex = 0;
-    lineIndex++;
+    el.textContent += "\n";
+    j = 0;
+    i++;
     setTimeout(typeLine, 400);
   }
 }
 
-/* NEXT → RAINFOREST */
-document.getElementById("next2Btn").onclick = () => {
-  document.body.classList.remove("night");
-  document.body.classList.add("rainforest");
-};
+/* Scene 3 */
+function goToScene3() {
+  document.getElementById("scene2").classList.remove("active");
+  document.getElementById("scene3").classList.add("active");
 
-/* RAIN CREATION */
-for (let i = 0; i < 90; i++) {
-  const drop = document.createElement("div");
-  drop.className = "rain";
-  drop.style.left = Math.random() * 100 + "vw";
-  drop.style.animationDuration = 1.5 + Math.random() * 2 + "s";
-  document.body.appendChild(drop);
+  // Rain
+  for (let i = 0; i < 80; i++) {
+    const drop = document.createElement("div");
+    drop.className = "rain";
+    drop.style.left = Math.random() * 100 + "vw";
+    drop.style.animationDuration = 1.5 + Math.random() * 2 + "s";
+    document.getElementById("scene3").appendChild(drop);
+  }
 }
 </script>
 
