@@ -139,12 +139,18 @@ button:hover {
 .rain {
   position: fixed;
   width: 2px;
-  height: 14px;
+  height: 18px;
   background: rgba(200,255,255,0.35);
   top: -20px;
   animation: rainFall linear infinite;
-  z-index: 3;
+  z-index: 55;
+  opacity: 0;
 }
+
+body.rainforest-mode .rain {
+  opacity: 1;
+}
+
 
 @keyframes rainFall {
   to { transform: translateY(110vh); }
@@ -260,7 +266,26 @@ body.night .star {
 }
 
   /* ================= RAINFOREST SCENE ================= */
+.rainforest {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+  z-index: 50;
 
+  /* layered jungle look */
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0)),
+    radial-gradient(circle at 50% 20%, #9be7c4 0%, transparent 45%),
+    linear-gradient(to bottom, #1f6f54, #3a9d72, #78cfa4);
+}
+
+body.rainforest-mode .rainforest {
+  opacity: 1;
+}
+
+  
 .rainforest {
   position: fixed;
   inset: 0;
@@ -276,6 +301,12 @@ body.night .star {
   z-index: 50;
   overflow: hidden;
 }
+
+  <div class="trees">
+  <div class="tree left"></div>
+  <div class="tree right"></div>
+</div>
+
 
 /* activate */
 body.rainforest-mode .rainforest {
@@ -364,6 +395,47 @@ body.rainforest-mode .rainforest {
   }
 }
 
+  /* Trees */
+.trees {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 45%;
+  pointer-events: none;
+  z-index: 52;
+}
+
+.tree {
+  position: absolute;
+  bottom: 0;
+  width: 280px;
+  height: 100%;
+  background: linear-gradient(to top, #0f3d2e, #2d6a4f);
+  clip-path: polygon(
+    50% 0%,
+    65% 20%,
+    55% 35%,
+    75% 55%,
+    60% 75%,
+    80% 100%,
+    20% 100%,
+    40% 75%,
+    25% 55%,
+    45% 35%,
+    35% 20%
+  );
+  opacity: 0.9;
+}
+
+.tree.left {
+  left: -40px;
+}
+
+.tree.right {
+  right: -40px;
+}
+
+
 </style>
 </head>
 
@@ -428,9 +500,10 @@ document.getElementById("nextBtn").addEventListener("click", () => {
 
 function typeLine() {
   if (lineIndex >= textLines.length) {
-    document.getElementById("next2Btn").classList.add("show");
-    return;
-  }
+    document.getElementById("next2Btn").addEventListener("click", () => {
+  document.body.classList.add("rainforest-mode");
+});
+
 
   const target = document.getElementById("typewriter");
   const line = textLines[lineIndex];
