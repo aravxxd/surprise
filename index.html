@@ -103,6 +103,31 @@ body {
   background-repeat: no-repeat;
 }
 
+/* ================= SCENE 4 ================= */
+#scene4 {
+  background-image: url("bookpage.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+}
+
+/* Book page text */
+.book-text {
+  max-width: 700px;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  font-size: 20px;
+  line-height: 1.7;
+  background: rgba(255,255,255,0.92);
+  padding: 40px;
+  border-radius: 15px;
+  border-left: 6px solid rgba(139,69,19,0.8);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  text-align: left;
+  color: #2c1810;
+  backdrop-filter: blur(5px);
+}
+
 /* Bird */
 .bird {
   font-size: 56px;
@@ -166,7 +191,6 @@ button:hover {
 
 <!-- SCENE 1 -->
 <div id="scene1" class="scene active">
-  <!-- back button (optional: can hide on first scene) -->
   <button class="top-back hidden" onclick="goToScene1()">&larr; back</button>
 
   <h1 class="glow">for you, princess pihu</h1>
@@ -196,7 +220,18 @@ button:hover {
     <br>~ birbs
   </div>
 
-  <button class="bottom-btn">coming soon</button>
+  <button class="bottom-btn" onclick="goToScene4()">next →</button>
+</div>
+
+<!-- SCENE 4 -->
+<div id="scene4" class="scene">
+  <button class="top-back" onclick="backToScene3()">&larr; back</button>
+
+  <div class="book-text">
+    Thankyou for spawning this year and making my year filled with good memories, all moments with you are memorable for me and cherish them every single day just hoping and wanting to be next to you so i can spend more time, i wanna continue loving you in year 2026 as well for you, ofc no force for you, be yourself, you matter, you are the boss queen
+  </div>
+
+  <button class="bottom-btn" onclick="goToScene1()">next →</button>
 </div>
 
 <script>
@@ -231,10 +266,10 @@ const lines = [
   "Not because you try to be perfect —",
   "but because of who you are.",
   "",
-  "You’re adorable in the way you feel things deeply,",
+  "You're adorable in the way you feel things deeply,",
   "and strong in the way you keep going anyway.",
   "",
-  "That’s why I chose to love you —",
+  "That's why I chose to love you —",
   "for your softness,",
   "and for your strength."
 ];
@@ -244,14 +279,19 @@ let charIndex = 0;
 let typingStarted = false;
 
 function goToScene1() {
-  document.getElementById("scene2").classList.remove("active");
-  document.getElementById("scene3").classList.remove("active");
+  // Reset typewriter when going back to scene 1
+  document.getElementById("typewriter").textContent = "";
+  lineIndex = 0;
+  charIndex = 0;
+  typingStarted = false;
+  document.getElementById("nextAfterText").classList.add("hidden");
+  
+  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
   document.getElementById("scene1").classList.add("active");
 }
 
 function goToScene2() {
-  document.getElementById("scene1").classList.remove("active");
-  document.getElementById("scene3").classList.remove("active");
+  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
   document.getElementById("scene2").classList.add("active");
 
   if (!typingStarted) {
@@ -261,22 +301,28 @@ function goToScene2() {
 }
 
 function goToScene3() {
-  document.getElementById("scene2").classList.remove("active");
-  document.getElementById("scene1").classList.remove("active");
+  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
   document.getElementById("scene3").classList.add("active");
+}
+
+function goToScene4() {
+  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
+  document.getElementById("scene4").classList.add("active");
 }
 
 /* back buttons */
 function backToScene1() {
-  document.getElementById("scene2").classList.remove("active");
-  document.getElementById("scene3").classList.remove("active");
-  document.getElementById("scene1").classList.add("active");
+  goToScene1();
 }
 
 function backToScene2() {
-  document.getElementById("scene3").classList.remove("active");
-  document.getElementById("scene1").classList.remove("active");
+  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
   document.getElementById("scene2").classList.add("active");
+}
+
+function backToScene3() {
+  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
+  document.getElementById("scene3").classList.add("active");
 }
 
 function typeLine() {
