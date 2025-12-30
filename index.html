@@ -40,6 +40,14 @@ body {
   left: 20px;
 }
 
+/* Music control */
+.music-control {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+}
+
 /* ================= SCENE 1 ================= */
 #scene1 {
   background: linear-gradient(to bottom, #2f3e46, #52796f);
@@ -203,6 +211,13 @@ button:hover {
 </head>
 
 <body>
+<!-- BACKGROUND MUSIC - PLAYS THROUGHOUT -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MUSIC CONTROL BUTTON -->
+<button id="musicToggle" class="music-control" onclick="toggleMusic()" title="Toggle music">🎵</button>
 
 <!-- SCENE 1 -->
 <div id="scene1" class="scene active">
@@ -250,6 +265,33 @@ button:hover {
 </div>
 
 <script>
+/* MUSIC CONTROL */
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+let musicPlaying = false;
+
+function toggleMusic() {
+  if (musicPlaying) {
+    bgMusic.pause();
+    musicToggle.textContent = "🔇";
+    musicPlaying = false;
+  } else {
+    bgMusic.play().catch(e => console.log("Autoplay blocked:", e));
+    musicToggle.textContent = "🎵";
+    musicPlaying = true;
+  }
+}
+
+// Start music when user first interacts (fixes autoplay policy)
+document.addEventListener('click', function startMusicOnInteract() {
+  if (!musicPlaying) {
+    bgMusic.play().catch(e => console.log("Autoplay blocked:", e));
+    musicToggle.textContent = "🎵";
+    musicPlaying = true;
+  }
+  document.removeEventListener('click', startMusicOnInteract);
+}, { once: true });
+
 /* FLOWERS */
 const flowers = ["🌸","🌺","🍃"];
 for (let i = 0; i < 25; i++) {
@@ -279,7 +321,7 @@ for (let i = 0; i < 60; i++) {
   star.className = "star";
   star.textContent = "✨";
   star.style.left = Math.random() * 100 + "vw";
-  star.style.top = Math.random() * 40 + "vh"; /* stars in upper sky */
+  star.style.top = Math.random() * 40 + "vh";
   star.style.animationDelay = Math.random() * 3 + "s";
   star.style.animationDuration = (2 + Math.random() * 3) + "s";
   document.getElementById("scene2").appendChild(star);
@@ -306,7 +348,6 @@ let charIndex = 0;
 let typingStarted = false;
 
 function goToScene1() {
-  // Reset typewriter when going back to scene 1
   document.getElementById("typewriter").textContent = "";
   lineIndex = 0;
   charIndex = 0;
@@ -337,7 +378,6 @@ function goToScene4() {
   document.getElementById("scene4").classList.add("active");
 }
 
-/* back buttons */
 function backToScene1() {
   goToScene1();
 }
