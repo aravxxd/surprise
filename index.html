@@ -33,7 +33,7 @@ body {
   display: flex;
 }
 
-/* ================= MUSIC BUTTON - BOTTOM RIGHT (SMALL & AESTHETIC) ================= */
+/* ================= MUSIC BUTTON - BOTTOM RIGHT ================= */
 .music-toggle {
   position: fixed;
   bottom: 25px;
@@ -113,7 +113,6 @@ body {
   background: linear-gradient(to bottom, #0b132b, #1c2541);
 }
 
-/* Stars */
 .star {
   position: absolute;
   font-size: 12px;
@@ -128,7 +127,6 @@ body {
   50% { opacity: 1; transform: scale(1.3); }
 }
 
-/* Moon */
 .moon {
   position: absolute;
   top: 40px;
@@ -140,7 +138,6 @@ body {
   box-shadow: 0 0 40px rgba(255,255,255,.6);
 }
 
-/* Text */
 #typewriter {
   max-width: 600px;
   font-size: 18px;
@@ -159,6 +156,74 @@ body {
 
 /* ================= SCENE 4 ================= */
 #scene4 {
+  background-image: url("ambient.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.ambient-text {
+  max-width: 700px;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  font-size: 18px;
+  line-height: 1.8;
+  background: rgba(0,0,0,0.7);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: left;
+  color: #f0f8ff;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* ================= SCENE 5 ================= */
+#scene5 {
+  background-image: url("hug.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hug-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 20px rgba(255,215,0,0.8);
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hug-text {
+  font-size: 72px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 30px rgba(255,255,255,0.8);
+  letter-spacing: 4px;
+  opacity: 0;
+  animation: hugPulse 2s ease 1s forwards infinite;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hugPulse {
+  0%, 100% { 
+    opacity: 0.9; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.05); 
+  }
+}
+
+/* ================= SCENE 6 ================= */
+#scene6 {
   background-image: url("bookpage.jpg");
   background-size: cover;
   background-position: center;
@@ -166,7 +231,6 @@ body {
   background-blend-mode: multiply;
 }
 
-/* Book page text */
 .book-text {
   max-width: 700px;
   font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
@@ -182,7 +246,6 @@ body {
   backdrop-filter: blur(5px);
 }
 
-/* Bird */
 .bird {
   font-size: 56px;
   animation: blink 4s infinite;
@@ -200,22 +263,20 @@ body {
   color: #eafff2;
 }
 
-/* ================= RAIN ================= */
 .rain {
   position: absolute;
   top: -20px;
   width: 2px;
   height: 18px;
   background: rgba(200,255,230,0.45);
-  animation: rain 2s linear infinite;
+  animation: rainFall 2s linear infinite;
   pointer-events: none;
 }
 
-@keyframes rain {
+@keyframes rainFall {
   to { transform: translateY(120vh); }
 }
 
-/* ================= BUTTONS ================= */
 button {
   padding: 10px 24px;
   border-radius: 30px;
@@ -225,6 +286,7 @@ button {
   cursor: pointer;
   font-size: 15px;
   transition: .3s;
+  margin: 10px;
 }
 
 button:hover {
@@ -242,18 +304,15 @@ button:hover {
 </head>
 
 <body>
-<!-- BACKGROUND MUSIC - STARTS SILENT -->
+<!-- MUSIC -->
 <audio id="bgMusic" loop preload="auto">
   <source src="music.mp3" type="audio/mpeg">
 </audio>
-
-<!-- SINGLE PLAY/PAUSE BUTTON - BOTTOM RIGHT (SMALL CIRCLE) -->
 <button id="musicToggle" class="music-toggle" onclick="toggleMusic()">▶️</button>
 
 <!-- SCENE 1 -->
 <div id="scene1" class="scene active">
   <button class="top-back hidden" onclick="goToScene1()">&larr; back</button>
-
   <h1 class="glow">for you, princess pihu</h1>
   <div class="subtitle">
     made for you <span class="ara-glow">by ara</span>
@@ -264,41 +323,59 @@ button:hover {
 <!-- SCENE 2 -->
 <div id="scene2" class="scene">
   <button class="top-back" onclick="backToScene1()">&larr; back</button>
-
   <div class="moon"></div>
-
   <p id="typewriter"></p>
-
   <button id="nextAfterText" class="hidden" onclick="goToScene3()">next →</button>
 </div>
 
 <!-- SCENE 3 -->
 <div id="scene3" class="scene">
   <button class="top-back" onclick="backToScene2()">&larr; back</button>
-
   <div class="bird">🐦</div>
-
   <div class="final-text">
-    Thank you for protecting and loving us everyday  
-    <br>~ birbs
+    Thank you for protecting and loving us everyday<br>~ birbs
   </div>
-
   <button class="bottom-btn" onclick="goToScene4()">next →</button>
 </div>
 
-<!-- SCENE 4 -->
+<!-- SCENE 4 - NEW AMBIENT -->
 <div id="scene4" class="scene">
   <button class="top-back" onclick="backToScene3()">&larr; back</button>
+  <div class="ambient-text">
+    Wish i could watch your favourite movies everyday with you because those time i get to spend with you are so much precious and priceless, i still remember that movie where the girl who came to live with grandparents ran away and the grandfather came looking for her all the way, i forgot the name but that was one of the movies or series that i watched with you in beginning and i still cry at night sometimes when i remember those lovely moment<br><br>
+    
+    Wish i could visit your library at home and spend a month or a year if it takes and read every single book you have read...<br><br>
+    
+    wish i could sip the black coffee you make with the special aroma that feels like smell of soil after rain<br><br>
+    
+    wish we could play minecraft together and build homes and explore the world together<br><br>
+    
+    wish i could travel to new york (your fav place if i recall right) with you and explore<br><br>
+    
+    wish i could have your fav sabji bindi cooked by you in your hand along with you
+  </div>
+  <button class="bottom-btn" onclick="goToScene5()">next →</button>
+</div>
 
+<!-- SCENE 5 - HUG -->
+<div id="scene5" class="scene">
+  <button class="top-back" onclick="backToScene4()">&larr; back</button>
+  <div class="hug-title">and most importantly</div>
+  <div class="hug-text">I WANNA TIGHTLY HUG YOU</div>
+  <button class="bottom-btn" onclick="goToScene6()">next →</button>
+</div>
+
+<!-- SCENE 6 - BOOK (old scene 4) -->
+<div id="scene6" class="scene">
+  <button class="top-back" onclick="backToScene5()">&larr; back</button>
   <div class="book-text">
     Thankyou for spawning this year and making my year filled with good memories, all moments with you are memorable for me and cherish them every single day just hoping and wanting to be next to you so i can spend more time, i wanna continue loving you in year 2026 as well for you, ofc no force for you, be yourself, you matter, you are the boss queen
   </div>
-
   <button class="bottom-btn" onclick="goToScene1()">next →</button>
 </div>
 
 <script>
-/* MUSIC TOGGLE - SINGLE SMALL BUTTON */
+/* MUSIC */
 const bgMusic = document.getElementById("bgMusic");
 const musicToggle = document.getElementById("musicToggle");
 let musicPlaying = false;
@@ -315,7 +392,7 @@ function toggleMusic() {
   }
 }
 
-/* FLOWERS */
+/* ANIMATIONS */
 const flowers = ["🌸","🌺","🍃"];
 for (let i = 0; i < 25; i++) {
   const petal = document.createElement("div");
@@ -327,7 +404,6 @@ for (let i = 0; i < 25; i++) {
   document.getElementById("scene1").appendChild(petal);
 }
 
-/* RAIN */
 document.querySelectorAll("#scene2, #scene3").forEach(scene => {
   for (let i = 0; i < 80; i++) {
     const drop = document.createElement("div");
@@ -338,7 +414,6 @@ document.querySelectorAll("#scene2, #scene3").forEach(scene => {
   }
 });
 
-/* STARS - SCENE 2 */
 for (let i = 0; i < 60; i++) {
   const star = document.createElement("div");
   star.className = "star";
@@ -350,7 +425,7 @@ for (let i = 0; i < 60; i++) {
   document.getElementById("scene2").appendChild(star);
 }
 
-/* SCENE NAVIGATION */
+/* TYPEWRITER */
 const lines = [
   "Why I chose to continue loving you?",
   "",
@@ -370,46 +445,6 @@ let lineIndex = 0;
 let charIndex = 0;
 let typingStarted = false;
 
-function goToScene1() {
-  document.getElementById("typewriter").textContent = "";
-  lineIndex = 0;
-  charIndex = 0;
-  typingStarted = false;
-  document.getElementById("nextAfterText").classList.add("hidden");
-  
-  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
-  document.getElementById("scene1").classList.add("active");
-}
-
-function goToScene2() {
-  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
-  document.getElementById("scene2").classList.add("active");
-  if (!typingStarted) {
-    typingStarted = true;
-    typeLine();
-  }
-}
-
-function goToScene3() {
-  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
-  document.getElementById("scene3").classList.add("active");
-}
-
-function goToScene4() {
-  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
-  document.getElementById("scene4").classList.add("active");
-}
-
-function backToScene1() { goToScene1(); }
-function backToScene2() {
-  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
-  document.getElementById("scene2").classList.add("active");
-}
-function backToScene3() {
-  document.querySelectorAll(".scene").forEach(scene => scene.classList.remove("active"));
-  document.getElementById("scene3").classList.add("active");
-}
-
 function typeLine() {
   if (lineIndex >= lines.length) {
     document.getElementById("nextAfterText").classList.remove("hidden");
@@ -426,7 +461,47 @@ function typeLine() {
     setTimeout(typeLine, 400);
   }
 }
-</script>
 
+/* NAVIGATION */
+function goToScene1() {
+  document.getElementById("typewriter").textContent = "";
+  lineIndex = 0; charIndex = 0; typingStarted = false;
+  document.getElementById("nextAfterText").classList.add("hidden");
+  document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
+  document.getElementById("scene1").classList.add("active");
+}
+
+function goToScene2() {
+  document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
+  document.getElementById("scene2").classList.add("active");
+  if (!typingStarted) { typingStarted = true; typeLine(); }
+}
+
+function goToScene3() {
+  document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
+  document.getElementById("scene3").classList.add("active");
+}
+
+function goToScene4() {
+  document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
+  document.getElementById("scene4").classList.add("active");
+}
+
+function goToScene5() {
+  document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
+  document.getElementById("scene5").classList.add("active");
+}
+
+function goToScene6() {
+  document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
+  document.getElementById("scene6").classList.add("active");
+}
+
+function backToScene1() { goToScene1(); }
+function backToScene2() { document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene2").classList.add("active"); }
+function backToScene3() { document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene3").classList.add("active"); }
+function backToScene4() { document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene4").classList.add("active"); }
+function backToScene5() { document.querySelectorAll(".scene").forEach(s => s.classList.remove("active")); document.getElementById("scene5").classList.add("active"); }
+</script>
 </body>
 </html>
