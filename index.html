@@ -6,26 +6,28 @@
 <title>for you, princess pihu</title>
 
 <style>
-/* BASE */
+/* ================= BASE ================= */
 body {
   margin: 0;
   min-height: 100vh;
   font-family: Georgia, serif;
   text-align: center;
-  background: linear-gradient(to bottom, #2f3e46, #52796f, #84a98c);
-  color: #ecfdf3;
   overflow-x: hidden;
+  color: #ecfdf3;
+  background: linear-gradient(to bottom, #2f3e46, #52796f, #84a98c);
   transition: background 2s ease;
 }
 
-/* NIGHT MODE */
+/* NIGHT */
 body.night {
-  background: linear-gradient(to bottom, #0f172a, #020617);
+  background: linear-gradient(to bottom, #0b132b, #1c2541, #3a506b);
 }
 
-/* RAINFOREST MODE */
+/* RAINFOREST (dark, deep green) */
 body.rainforest {
-  background: linear-gradient(to bottom, #1f6f4a, #4fa87a, #8fd3a8);
+  background:
+    radial-gradient(circle at top, rgba(60,120,90,0.5), transparent 60%),
+    linear-gradient(to bottom, #0b2e1a, #123d2a, #1e5631, #0b2e1a);
 }
 
 /* CONTENT */
@@ -38,17 +40,17 @@ body.rainforest {
 /* TITLE */
 .glow {
   font-size: 42px;
-  color: #fff6e0;
-  text-shadow: 0 0 10px rgba(255,220,170,.6);
-  animation: flicker 3s infinite;
+  color: #fff6dc;
+  text-shadow: 0 0 15px rgba(255,210,150,.7);
+  animation: glowPulse 3s infinite;
 }
 
-@keyframes flicker {
-  50% { text-shadow: 0 0 25px rgba(255,200,140,.9); }
+@keyframes glowPulse {
+  50% { text-shadow: 0 0 30px rgba(255,200,140,.9); }
 }
 
 .subtitle {
-  opacity: 0.9;
+  opacity: .9;
   margin-bottom: 30px;
 }
 
@@ -78,7 +80,7 @@ button:hover {
   pointer-events: auto;
 }
 
-/* TEXT BOX */
+/* TEXT */
 #thanksBox {
   opacity: 0;
   transform: translateY(20px);
@@ -101,14 +103,13 @@ button:hover {
   position: fixed;
   top: -20px;
   width: 2px;
-  height: 16px;
-  background: rgba(255,255,255,.4);
+  height: 18px;
+  background: rgba(200,255,230,.35);
   animation: rainFall linear infinite;
   opacity: 0;
   z-index: 2;
 }
 
-body.night .rain,
 body.rainforest .rain {
   opacity: 1;
 }
@@ -138,12 +139,13 @@ body.night .moon {
 /* BIRD */
 .bird {
   position: fixed;
-  top: 40%;
+  top: 42%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 48px;
+  font-size: 52px;
   opacity: 0;
   animation: blink 4s infinite;
+  z-index: 5;
 }
 
 body.rainforest .bird {
@@ -152,16 +154,16 @@ body.rainforest .bird {
 
 /* blinking */
 @keyframes blink {
-  0%, 90%, 100% { transform: translateX(-50%) scaleY(1); }
-  92% { transform: translateX(-50%) scaleY(0.1); }
+  0%, 92%, 100% { transform: translateX(-50%) scaleY(1); }
+  94% { transform: translateX(-50%) scaleY(0.1); }
 }
 
-/* MESSAGE */
+/* FINAL TEXT */
 .final-text {
   opacity: 0;
   margin-top: 220px;
   font-size: 26px;
-  color: #f5fff7;
+  color: #eafff2;
   transition: 1.5s;
 }
 
@@ -195,7 +197,6 @@ body.rainforest .final-text {
 <div class="bird">🐦</div>
 
 <script>
-/* TEXT */
 const textLines = [
   "Why I chose to continue loving you?",
   "",
@@ -214,7 +215,6 @@ const textLines = [
 let lineIndex = 0;
 let charIndex = 0;
 
-/* NEXT 1 */
 document.getElementById("nextBtn").onclick = () => {
   document.body.classList.add("night");
   document.getElementById("thanksBox").classList.add("show");
@@ -222,7 +222,6 @@ document.getElementById("nextBtn").onclick = () => {
   typeLine();
 };
 
-/* TYPE EFFECT */
 function typeLine() {
   if (lineIndex >= textLines.length) {
     document.getElementById("next2Btn").classList.add("show");
@@ -250,7 +249,7 @@ document.getElementById("next2Btn").onclick = () => {
 };
 
 /* RAIN CREATION */
-for (let i = 0; i < 80; i++) {
+for (let i = 0; i < 90; i++) {
   const drop = document.createElement("div");
   drop.className = "rain";
   drop.style.left = Math.random() * 100 + "vw";
